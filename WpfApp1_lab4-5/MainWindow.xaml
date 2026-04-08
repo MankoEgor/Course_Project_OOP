@@ -1,0 +1,125 @@
+﻿<Window x:Class="HotelComplex.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Гостиничный комплекс"
+        MinWidth="900" MinHeight="600"
+        Width="1200" Height="700">
+
+    <!-- Главный контейнер: шапка сверху, остальное снизу -->
+    <DockPanel>
+
+        <!-- ШАПКА -->
+        <Border DockPanel.Dock="Top" Background="#1a1a2e" Padding="20,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="{DynamicResource AppTitle}"
+                           Foreground="White"
+                           FontSize="22" FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" >
+                    <Button Content="{DynamicResource BtnLoginClient}"  Width="140" Height="34"/>
+                    <Button Content="{DynamicResource BtnLoginClient}"   Width="140" Height="34"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ОСНОВНАЯ ОБЛАСТЬ: фильтры слева, карточки справа -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <!-- панель фильтров -->
+                <ColumnDefinition Width="*"/>
+                <!-- список номеров -->
+            </Grid.ColumnDefinitions>
+
+            <!-- ПАНЕЛЬ ФИЛЬТРОВ -->
+            <Border Grid.Column="0" Background="#f5f5f5" Padding="14">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource LblFilters}" FontSize="16" FontWeight="Bold" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="{DynamicResource LblCategory}" Margin="0,0,0,4"/>
+                    <ComboBox x:Name="FilterCategory" Margin="0,0,0,12">
+                        <ComboBoxItem Content="{DynamicResource CatAll}" IsSelected="True"/>
+                        <ComboBoxItem Content="{DynamicResource CatSingle}"/>
+                        <ComboBoxItem Content="{DynamicResource CatDouble}"/>
+                        <ComboBoxItem Content="{DynamicResource CatLux}"/>
+                    </ComboBox>
+
+                    <TextBlock Text="{DynamicResource LblPricePerNight}" Margin="0,0,0,4"/>
+                    <Slider x:Name="FilterPrice"
+                            Minimum="0" Maximum="20000" Value="20000"
+                            TickFrequency="1000" IsSnapToTickEnabled="True"
+                            Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding ElementName=FilterPrice, Path=Value, StringFormat='до {0:N0} руб.'}"
+                               Margin="0,0,0,12"/>
+
+                    <CheckBox x:Name="FilterAvailable" Content="{DynamicResource ChkAvailable}" Margin="0,0,0,16"/>
+
+                    <Button Content="Применить" Height="34"/>
+                </StackPanel>
+            </Border>
+
+            <!-- СПИСОК НОМЕРОВ -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- строка поиска -->
+                    <RowDefinition Height="*"/>
+                    <!-- карточки -->
+                </Grid.RowDefinitions>
+
+                <!-- СТРОКА ПОИСКА -->
+                <Border Grid.Row="0" Background="White" Padding="14,10"
+                        BorderBrush="#e0e0e0" BorderThickness="0,0,0,1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SearchBox"
+                                 Grid.Column="0"
+                                 Height="34"
+                                 Padding="8,0"
+                                 VerticalContentAlignment="Center"
+                                 Text="{DynamicResource SearchPlaceholder}"/>
+                        <Button Grid.Column="1" Content="{DynamicResource BtnAddRoom}"
+                                Height="34" Width="140" Margin="10,0,0,0"/>
+                    </Grid>
+                </Border>
+
+                <!-- КАРТОЧКИ НОМЕРОВ (пока заглушки) -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <WrapPanel x:Name="RoomsPanel"
+                               Orientation="Horizontal"
+                               Margin="14">
+
+                        <!-- Заглушка карточки — потом заменим на DataTemplate -->
+                        <Border Width="260" Height="320" Margin="8"
+                                Background="White" CornerRadius="8"
+                                BorderBrush="#e0e0e0" BorderThickness="1">
+                            <StackPanel>
+                                <Border Background="#cccccc" Height="160" CornerRadius="8,8,0,0"/>
+                                <StackPanel Margin="12">
+                                    <TextBlock Text="Номер Люкс" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Text="2-местный • 3 этаж" Foreground="Gray" Margin="0,2"/>
+                                    <TextBlock Text="⭐ 4.8" Margin="0,4"/>
+                                    <TextBlock Text="5 000 руб/ночь" FontSize="14" FontWeight="Bold" Foreground="#1a1a2e"/>
+                                    <Button Content="Подробнее" Height="32" Margin="0,10,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                    </WrapPanel>
+                </ScrollViewer>
+
+            </Grid>
+        </Grid>
+
+    </DockPanel>
+</Window>

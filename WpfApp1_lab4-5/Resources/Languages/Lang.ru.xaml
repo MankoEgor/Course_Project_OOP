@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+    <s:String x:Key="AppTitle">Гостиничный комплекс</s:String>
+    <s:String x:Key="BtnLoginClient">Войти как клиент</s:String>
+    <s:String x:Key="BtnLoginAdmin">Войти как администратор</s:String>
+    <s:String x:Key="LblFilters">Фильтры</s:String>
+    <s:String x:Key="LblCategory">Категория</s:String>
+    <s:String x:Key="LblPriceTo">Цена до (руб/ночь)</s:String>
+    <s:String x:Key="ChkAvailable">Только свободные</s:String>
+    <s:String x:Key="BtnApply">Применить</s:String>
+    <s:String x:Key="BtnDetails">Подробнее</s:String>
+    <s:String x:Key="BtnAddRoom">+ Добавить номер</s:String>
+    <s:String x:Key="SearchPlaceholder">Поиск номера...</s:String>
+    <s:String x:Key="LblPricePerNight">руб/ночь</s:String>
+    <s:String x:Key="CatAll">Все</s:String>
+    <s:String x:Key="CatSingle">Одноместный</s:String>
+    <s:String x:Key="CatDouble">Двухместный</s:String>
+    <s:String x:Key="CatLux">Люкс</s:String>
+
+</ResourceDictionary>

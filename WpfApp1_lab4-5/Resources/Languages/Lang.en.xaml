@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+    <s:String x:Key="AppTitle">Hotel Complex</s:String>
+    <s:String x:Key="BtnLoginClient">Login as Client</s:String>
+    <s:String x:Key="BtnLoginAdmin">Login as Admin</s:String>
+    <s:String x:Key="LblFilters">Filters</s:String>
+    <s:String x:Key="LblCategory">Category</s:String>
+    <s:String x:Key="LblPriceTo">Price up to (rub/night)</s:String>
+    <s:String x:Key="ChkAvailable">Available only</s:String>
+    <s:String x:Key="BtnApply">Apply</s:String>
+    <s:String x:Key="BtnDetails">Details</s:String>
+    <s:String x:Key="BtnAddRoom">+ Add Room</s:String>
+    <s:String x:Key="SearchPlaceholder">Search room...</s:String>
+    <s:String x:Key="LblPricePerNight">rub/night</s:String>
+    <s:String x:Key="CatAll">All</s:String>
+    <s:String x:Key="CatSingle">Single</s:String>
+    <s:String x:Key="CatDouble">Double</s:String>
+    <s:String x:Key="CatLux">Lux</s:String>
+
+</ResourceDictionary>
