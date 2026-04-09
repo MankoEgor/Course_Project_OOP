@@ -19,7 +19,6 @@ C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\RoomDetailWindow.g.cs
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\App.g.cs
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5_MarkupCompile.cache
-C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5_MarkupCompile.lref
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\AdminMainWindow.baml
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5.g.resources
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5.GeneratedMSBuildEditorConfig.editorconfig
@@ -32,3 +31,5 @@ C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5.pdb
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\WpfApp1_lab4-5.genruntimeconfig.cache
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\ref\WpfApp1_lab4-5.dll
+C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\RoomEditWindow.baml
+C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\obj\Debug\net10.0-windows\RoomEditWindow.g.cs

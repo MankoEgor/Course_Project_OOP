@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NET10_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\manko\OneDrive\Документы\OOP\WpfApp1_lab4-5\WpfApp1_lab4-5\App.xaml
-7561488229
+8-1423507343
 
-11256381852
+12-599375604
 2061880389680
-AdminMainWindow.xaml;ClientMainWindow.xaml;LoginWindow.xaml;RegWindow.xaml;Resources\Languages\Lang.en.xaml;Resources\Languages\Lang.ru.xaml;RoomDetailWindow.xaml;
+AdminMainWindow.xaml;ClientMainWindow.xaml;LoginWindow.xaml;RegWindow.xaml;Resources\Languages\Lang.en.xaml;Resources\Languages\Lang.ru.xaml;RoomDetailWindow.xaml;RoomEditWindow.xaml;
 
 False
 

@@ -3,10 +3,375 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1_lab4_5"
         mc:Ignorable="d"
-        Title="AdminMainWindow" Height="450" Width="800">
+        Title="Панель администратора"
+        Height="720"
+        Width="1240"
+        MinHeight="620"
+        MinWidth="1020"
+        WindowStartupLocation="CenterScreen"
+        Background="#F6F3EE">
+
+    <Window.Resources>
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Padding" Value="16,0,16,0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#F8F3ED"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#8A6247"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="MinWidth" Value="118"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MetricCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="18"/>
+            <Setter Property="Margin" Value="0,0,16,16"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="#6F4E37">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,6,0,24">
+                    <TextBlock Text="Grand Palace"
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+                    <TextBlock x:Name="TxtAdminName"
+                               Text="Администратор"
+                               FontSize="14"
+                               Foreground="#EADFD3"
+                               Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <Button x:Name="BtnDashboard"
+                            Content="Сводка"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnDashboard_Click"/>
+
+                    <Button x:Name="BtnRooms"
+                            Content="Управление номерами"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnRooms_Click"/>
+
+                    <Button x:Name="BtnUsers"
+                            Content="Пользователи"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnUsers_Click"/>
+
+                    <Button x:Name="BtnBookings"
+                            Content="Бронирования"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnBookings_Click"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2">
+                    <Button Content="Открыть клиентский вид"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnOpenClientView_Click"/>
+
+                    <Button Content="Выход"
+                            Style="{StaticResource SidebarButtonStyle}"
+                            Click="BtnLogout_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main content -->
+        <Grid Grid.Column="1" Margin="22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    Background="White"
+                    CornerRadius="18"
+                    Padding="22"
+                    Margin="0,0,0,18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock x:Name="TxtPageTitle"
+                                   Text="Сводка"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="#232323"/>
+                        <TextBlock x:Name="TxtPageSubtitle"
+                                   Text="Общая информация по гостиничному комплексу"
+                                   FontSize="14"
+                                   Foreground="#666"
+                                   Margin="0,4,0,0"/>
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                            Background="#F3EDE6"
+                            CornerRadius="12"
+                            Padding="14,8"
+                            VerticalAlignment="Center">
+                        <TextBlock x:Name="TxtCurrentDate"
+                                   Foreground="#6F4E37"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Workspace -->
+            <Grid Grid.Row="1">
+
+                <!-- Dashboard -->
+                <ScrollViewer x:Name="DashboardView" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <WrapPanel Margin="0,0,0,4">
+                            <Border Style="{StaticResource MetricCardStyle}" Width="220">
+                                <StackPanel>
+                                    <TextBlock Text="Всего номеров" FontSize="14" Foreground="#7A7A7A"/>
+                                    <TextBlock x:Name="TxtTotalRooms"
+                                               FontSize="32"
+                                               FontWeight="Bold"
+                                               Foreground="#232323"
+                                               Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource MetricCardStyle}" Width="220">
+                                <StackPanel>
+                                    <TextBlock Text="Свободные" FontSize="14" Foreground="#7A7A7A"/>
+                                    <TextBlock x:Name="TxtAvailableRooms"
+                                               FontSize="32"
+                                               FontWeight="Bold"
+                                               Foreground="#4A5D4E"
+                                               Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource MetricCardStyle}" Width="220">
+                                <StackPanel>
+                                    <TextBlock Text="Занятые" FontSize="14" Foreground="#7A7A7A"/>
+                                    <TextBlock x:Name="TxtBusyRooms"
+                                               FontSize="32"
+                                               FontWeight="Bold"
+                                               Foreground="#C44"
+                                               Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource MetricCardStyle}" Width="220">
+                                <StackPanel>
+                                    <TextBlock Text="Средняя цена" FontSize="14" Foreground="#7A7A7A"/>
+                                    <TextBlock x:Name="TxtAveragePrice"
+                                               FontSize="32"
+                                               FontWeight="Bold"
+                                               Foreground="#6F4E37"
+                                               Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </WrapPanel>
+
+                        <Border Background="White"
+                                CornerRadius="16"
+                                Padding="22">
+                            <StackPanel>
+                                <TextBlock Text="Быстрые действия"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           Foreground="#232323"
+                                           Margin="0,0,0,14"/>
+
+                                <WrapPanel>
+                                    <Button Content="Добавить номер"
+                                            Background="#4A5D4E"
+                                            Style="{StaticResource ActionButtonStyle}"
+                                            Click="BtnAdd_Click"/>
+
+                                    <Button Content="Открыть список номеров"
+                                            Background="#6F4E37"
+                                            Style="{StaticResource ActionButtonStyle}"
+                                            Click="BtnRooms_Click"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Rooms -->
+                <Grid x:Name="RoomsView" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0"
+                            Background="White"
+                            CornerRadius="16"
+                            Padding="16"
+                            Margin="0,0,0,16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="280"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="SearchRoomBox"
+                                     Height="36"
+                                     Padding="12,0"
+                                     VerticalContentAlignment="Center"
+                                     FontSize="14"
+                                     ToolTip="Поиск по названию или категории"
+                                     TextChanged="SearchRoomBox_TextChanged"/>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button Content="Добавить"
+                                        Background="#4A5D4E"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Click="BtnAdd_Click"/>
+
+                                <Button Content="Редактировать"
+                                        Background="#6F4E37"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Click="BtnEdit_Click"/>
+
+                                <Button Content="Удалить"
+                                        Background="#C44"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Click="BtnDelete_Click"/>
+
+                                <Button Content="Обновить"
+                                        Background="#888"
+                                        Style="{StaticResource ActionButtonStyle}"
+                                        Click="BtnRefresh_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <DataGrid x:Name="RoomsGrid"
+                              Grid.Row="1"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal"
+                              RowBackground="White"
+                              AlternatingRowBackground="#FAFAFA"
+                              BorderBrush="#DDD"
+                              BorderThickness="1"
+                              FontSize="14">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                            <DataGridTextColumn Header="Краткое название" Binding="{Binding ShortName}" Width="170"/>
+                            <DataGridTextColumn Header="Полное название" Binding="{Binding FullName}" Width="220"/>
+                            <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="140"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding PricePerNight}" Width="120"/>
+                            <DataGridTextColumn Header="Этаж" Binding="{Binding Floor}" Width="80"/>
+                            <DataGridTextColumn Header="Площадь" Binding="{Binding Area}" Width="90"/>
+                            <DataGridTextColumn Header="Вместимость" Binding="{Binding Capacity}" Width="110"/>
+                            <DataGridCheckBoxColumn Header="Свободен" Binding="{Binding IsAvailable}" Width="100"/>
+                            <DataGridTextColumn Header="Рейтинг" Binding="{Binding Rating}" Width="90"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <!-- Users -->
+                <Border x:Name="UsersView"
+                        Visibility="Collapsed"
+                        Background="White"
+                        CornerRadius="16"
+                        Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Пользователи"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="#232323"/>
+                        <TextBlock Text="Пока это заготовка. Позже сюда можно добавить список клиентов и администраторов."
+                                   Foreground="#666"
+                                   Margin="0,12,0,0"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Bookings -->
+                <Border x:Name="BookingsView"
+                        Visibility="Collapsed"
+                        Background="White"
+                        CornerRadius="16"
+                        Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="Бронирования"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="#232323"/>
+                        <TextBlock Text="Пока это заготовка. Позже сюда можно добавить список броней, даты, статус и клиента."
+                                   Foreground="#666"
+                                   Margin="0,12,0,0"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
