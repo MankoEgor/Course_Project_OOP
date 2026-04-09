@@ -1,11 +1,10 @@
-﻿<Application x:Class="HotelComplex.App"
+﻿<Application x:Class="WpfApp1_lab4_5.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             StartupUri="ClientMainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Язык по умолчанию — русский -->
                 <ResourceDictionary Source="/Resources/Languages/Lang.ru.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

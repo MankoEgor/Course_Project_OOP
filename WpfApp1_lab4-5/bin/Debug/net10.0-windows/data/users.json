@@ -1,0 +1,23 @@
+[
+  {
+    "Id": 1,
+    "Email": "adminhotel@gmail.com",
+    "Password": "admin123",
+    "Role": "admin",
+    "FullName": "\u0410\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440"
+  },
+  {
+    "Id": 2,
+    "Email": "clientemail@gmail.com",
+    "Password": "client123",
+    "Role": "client",
+    "FullName": "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432"
+  },
+  {
+    "Id": 3,
+    "Email": "mankoegor5@gmail.com",
+    "Password": "19243567",
+    "Role": "client",
+    "FullName": "Egor Manko"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 1,
+    "Email": "adminhotel@gmail.com",
+    "Password": "admin123",
+    "Role": "admin",
+    "FullName": "Администратор"
+  },
+  {
+    "Id": 2,
+    "Email": "clientemail@gmail.com",
+    "Password": "client123",
+    "Role": "client",
+    "FullName": "Иван Иванов"
+  }
+]
