@@ -1,0 +1,23 @@
+<UserControl x:Class="WpfApp1_lab4_5.UserControls.StatCardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="root"
+             Height="Auto"
+             Width="220">
+    <Border Background="{Binding CardBackground, ElementName=root}"
+            CornerRadius="16"
+            Padding="18"
+            Margin="0,0,16,16"
+            Style="{DynamicResource AnimatedCardStyle}">
+        <StackPanel>
+            <TextBlock Text="{Binding Title, ElementName=root}"
+                       FontSize="14"
+                       Foreground="{DynamicResource BrushSubText}"/>
+            <TextBlock Text="{Binding Value, ElementName=root}"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Margin="0,8,0,0"
+                       Foreground="{Binding ValueBrush, ElementName=root}"/>
+        </StackPanel>
+    </Border>
+</UserControl>

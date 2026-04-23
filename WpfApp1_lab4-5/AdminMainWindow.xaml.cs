@@ -1,4 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Input;
+using System.IO;
+using System.Text.Json;
+using WpfApp1_lab4_5.Commands;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WpfApp1_lab4_5.Models;
@@ -12,21 +16,75 @@ namespace WpfApp1_lab4_5
         private readonly User _user;
         private List<Room> _allRooms = new();
 
-        private readonly Brush _activeBrush = new SolidColorBrush(Color.FromRgb(166, 124, 82));
         private readonly Brush _defaultBrush = Brushes.Transparent;
+
+        public ICommand AddRoomCommand { get; }
+        public ICommand RefreshRoomsCommand { get; }
+        public ICommand DeleteRoomCommand { get; }
 
         public AdminMainWindow(User user)
         {
             InitializeComponent();
+
+            AddRoomCommand = new RelayCommand(_ => ExecuteAddRoom());
+            RefreshRoomsCommand = new RelayCommand(_ => RefreshAll());
+            DeleteRoomCommand = new RelayCommand(_ => ExecuteDeleteRoom(), _ => GetSelectedRoom() != null);
+
+            DataContext = this;
+
             _user = user;
 
-            Title = $"Админ — {user.FullName}";
+            Title = TryFindResource("AdminPanel")?.ToString() ?? "Admin Panel";
             TxtAdminName.Text = user.FullName;
             TxtCurrentDate.Text = DateTime.Now.ToString("dd.MM.yyyy");
 
             LoadRooms();
             UpdateDashboard();
             ShowDashboard();
+        }
+
+        private string GetText(string key, string fallback = "")
+        {
+            return TryFindResource(key)?.ToString() ?? fallback;
+        }
+
+        private void ExecuteAddRoom()
+        {
+            var window = new RoomEditWindow();
+            window.Owner = this;
+            window.ShowDialog();
+
+            if (window.Saved)
+                RefreshAll();
+        }
+
+        private void ExecuteDeleteRoom()
+        {
+            var selectedRoom = GetSelectedRoom();
+
+            if (selectedRoom == null)
+            {
+                MessageBox.Show(
+                    GetText("SelectRoomToDelete", "Select a room to delete."),
+                    GetText("WarningTitle", "Warning"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show(
+                string.Format(GetText("DeleteRoomConfirm", "Delete room “{0}”?"), selectedRoom.ShortName),
+                GetText("ConfirmTitle", "Confirmation"),
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                var all = _roomService.GetAll();
+                all.RemoveAll(r => r.Id == selectedRoom.Id);
+                _roomService.Save(all);
+                RefreshAll();
+            }
         }
 
         private void LoadRooms()
@@ -54,6 +112,70 @@ namespace WpfApp1_lab4_5
             RoomsView.Visibility = Visibility.Collapsed;
             UsersView.Visibility = Visibility.Collapsed;
             BookingsView.Visibility = Visibility.Collapsed;
+            ProfileView.Visibility = Visibility.Collapsed;
+        }
+
+        private void LoadProfileData()
+        {
+            TxtProfileFullName.Text = _user.FullName;
+            TxtProfileEmail.Text = _user.Email;
+            TxtProfileRole.Text = _user.Role == "admin"
+                ? GetText("RoleAdmin", "Administrator")
+                : GetText("RoleClient", "Client");
+        }
+
+        private void BtnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            ShowProfile();
+        }
+
+        private void BtnSaveProfile_Click(object sender, RoutedEventArgs e)
+        {
+            var newName = TxtProfileFullName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(newName))
+            {
+                MessageBox.Show(
+                    GetText("FillAllFieldsError", "Fill in all fields."),
+                    GetText("WarningTitle", "Warning"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            var path = "Data/users.json";
+            if (!File.Exists(path))
+                return;
+
+            var json = File.ReadAllText(path);
+            var users = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+
+            var current = users.FirstOrDefault(u => u.Id == _user.Id);
+            if (current != null)
+            {
+                current.FullName = newName;
+                _user.FullName = newName;
+                TxtAdminName.Text = newName;
+
+                var updatedJson = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(path, updatedJson);
+
+                MessageBox.Show(
+                    GetText("ProfileSaved", "Profile data saved."),
+                    GetText("DoneTitle", "Done"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+
+        private void ShowProfile()
+        {
+            HideAllViews();
+            ProfileView.Visibility = Visibility.Visible;
+            TxtPageTitle.Text = GetText("Profile", "Profile");
+            TxtPageSubtitle.Text = GetText("PageSubtitleProfile", "");
+            SetActiveMenuButton(BtnProfile);
+            LoadProfileData();
         }
 
         private void ResetMenuButtons()
@@ -62,20 +184,21 @@ namespace WpfApp1_lab4_5
             BtnRooms.Background = _defaultBrush;
             BtnUsers.Background = _defaultBrush;
             BtnBookings.Background = _defaultBrush;
+            BtnProfile.Background = _defaultBrush;
         }
 
         private void SetActiveMenuButton(Button activeButton)
         {
             ResetMenuButtons();
-            activeButton.Background = _activeBrush;
+            activeButton.Background = (Brush)(TryFindResource("BrushAccent") ?? Brushes.SaddleBrown);
         }
 
         private void ShowDashboard()
         {
             HideAllViews();
             DashboardView.Visibility = Visibility.Visible;
-            TxtPageTitle.Text = "Сводка";
-            TxtPageSubtitle.Text = "Общая информация по гостиничному комплексу";
+            TxtPageTitle.Text = (string)FindResource("Dashboard");
+            TxtPageSubtitle.Text = (string)FindResource("PageSubtitleDashboard");
             SetActiveMenuButton(BtnDashboard);
         }
 
@@ -83,8 +206,8 @@ namespace WpfApp1_lab4_5
         {
             HideAllViews();
             RoomsView.Visibility = Visibility.Visible;
-            TxtPageTitle.Text = "Управление номерами";
-            TxtPageSubtitle.Text = "Добавление, редактирование, удаление и поиск номеров";
+            TxtPageTitle.Text = (string)FindResource("RoomsManagement");
+            TxtPageSubtitle.Text = (string)FindResource("PageSubtitleRooms");
             SetActiveMenuButton(BtnRooms);
         }
 
@@ -92,8 +215,8 @@ namespace WpfApp1_lab4_5
         {
             HideAllViews();
             UsersView.Visibility = Visibility.Visible;
-            TxtPageTitle.Text = "Пользователи";
-            TxtPageSubtitle.Text = "Управление клиентами и администраторами";
+            TxtPageTitle.Text = (string)FindResource("Users");
+            TxtPageSubtitle.Text = (string)FindResource("PageSubtitleUsers");
             SetActiveMenuButton(BtnUsers);
         }
 
@@ -101,8 +224,8 @@ namespace WpfApp1_lab4_5
         {
             HideAllViews();
             BookingsView.Visibility = Visibility.Visible;
-            TxtPageTitle.Text = "Бронирования";
-            TxtPageSubtitle.Text = "Контроль активных и завершённых броней";
+            TxtPageTitle.Text = (string)FindResource("Bookings");
+            TxtPageSubtitle.Text = (string)FindResource("PageSubtitleBookings");
             SetActiveMenuButton(BtnBookings);
         }
 
@@ -138,6 +261,34 @@ namespace WpfApp1_lab4_5
         private Room? GetSelectedRoom()
         {
             return RoomsGrid.SelectedItem as Room;
+        }
+
+        private void UpdateLocalizedTexts()
+        {
+            Title = TryFindResource("AdminPanel")?.ToString() ?? "Admin Panel";
+
+            if (DashboardView.Visibility == Visibility.Visible)
+                ShowDashboard();
+            else if (RoomsView.Visibility == Visibility.Visible)
+                ShowRooms();
+            else if (UsersView.Visibility == Visibility.Visible)
+                ShowUsers();
+            else if (BookingsView.Visibility == Visibility.Visible)
+                ShowBookings();
+            else if (ProfileView.Visibility == Visibility.Visible)
+                ShowProfile();
+        }
+
+        private void BtnRu_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageService.ChangeLanguage("ru");
+            UpdateLocalizedTexts();
+        }
+
+        private void BtnEn_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageService.ChangeLanguage("en");
+            UpdateLocalizedTexts();
         }
 
         private void BtnDashboard_Click(object sender, RoutedEventArgs e)
@@ -181,8 +332,11 @@ namespace WpfApp1_lab4_5
 
             if (selectedRoom == null)
             {
-                MessageBox.Show("Выберите номер для редактирования.",
-                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    GetText("SelectRoomToEdit", "Select a room to edit."),
+                    GetText("WarningTitle", "Warning"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
             }
 
@@ -200,14 +354,17 @@ namespace WpfApp1_lab4_5
 
             if (selectedRoom == null)
             {
-                MessageBox.Show("Выберите номер для удаления.",
-                    "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(
+                    GetText("SelectRoomToDelete", "Select a room to delete."),
+                    GetText("WarningTitle", "Warning"),
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
                 return;
             }
 
             var result = MessageBox.Show(
-                $"Удалить номер «{selectedRoom.ShortName}»?",
-                "Подтверждение",
+                string.Format(GetText("DeleteRoomConfirm", "Delete room “{0}”?"), selectedRoom.ShortName),
+                GetText("ConfirmTitle", "Confirmation"),
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -234,6 +391,23 @@ namespace WpfApp1_lab4_5
         private void BtnLogout_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+
+        private void BtnLightTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeService.ApplyTheme("Light");
+            UpdateLocalizedTexts();
+            if (ProfileView.Visibility == Visibility.Visible)
+                LoadProfileData();
+        }
+
+        private void BtnDarkTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeService.ApplyTheme("Dark");
+            UpdateLocalizedTexts();
+            if (ProfileView.Visibility == Visibility.Visible)
+                LoadProfileData();
         }
     }
 }

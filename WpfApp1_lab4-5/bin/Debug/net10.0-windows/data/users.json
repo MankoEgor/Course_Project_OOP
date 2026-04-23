@@ -12,12 +12,5 @@
     "Password": "client123",
     "Role": "client",
     "FullName": "\u0418\u0432\u0430\u043D \u0418\u0432\u0430\u043D\u043E\u0432"
-  },
-  {
-    "Id": 3,
-    "Email": "mankoegor5@gmail.com",
-    "Password": "11223344",
-    "Role": "client",
-    "FullName": "Egor Manko"
   }
 ]

@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Базовые фоны -->
+    <SolidColorBrush x:Key="BrushWindowBackground" Color="#FFFCFC"/>
+    <SolidColorBrush x:Key="BrushPanelBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushCardBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushSidebarBackground" Color="#6F4E37"/>
+    <SolidColorBrush x:Key="BrushHeaderBackground" Color="#6F4E37"/>
+    <SolidColorBrush x:Key="BrushBadgeBackground" Color="#F5F5F0"/>
+
+    <!-- Текст -->
+    <SolidColorBrush x:Key="BrushTextPrimary" Color="#1A1A1A"/>
+    <SolidColorBrush x:Key="BrushTextSecondary" Color="#666666"/>
+    <SolidColorBrush x:Key="BrushTextMuted" Color="#AAAAAA"/>
+    <SolidColorBrush x:Key="BrushTextOnDark" Color="#FFFCFC"/>
+
+    <!-- Поля и границы -->
+    <SolidColorBrush x:Key="BrushBorder" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="BrushFieldBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushFieldBorder" Color="#CCCCCC"/>
+
+    <!-- Акценты -->
+    <SolidColorBrush x:Key="BrushPrimary" Color="#6F4E37"/>
+    <SolidColorBrush x:Key="BrushPrimaryHover" Color="#5A3E2B"/>
+    <SolidColorBrush x:Key="BrushAccent" Color="#B8860B"/>
+    <SolidColorBrush x:Key="BrushSuccess" Color="#4A5D4E"/>
+    <SolidColorBrush x:Key="BrushDanger" Color="#CC4444"/>
+
+    <!-- Совместимость со старыми ключами -->
+    <SolidColorBrush x:Key="BrushBackground" Color="#FFFCFC"/>
+    <SolidColorBrush x:Key="BrushPanel" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="BrushText" Color="#1A1A1A"/>
+    <SolidColorBrush x:Key="BrushSubText" Color="#666666"/>
+</ResourceDictionary>

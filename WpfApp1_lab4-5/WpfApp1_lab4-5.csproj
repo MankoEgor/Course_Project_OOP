@@ -7,7 +7,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>hotel-signal-in-rounded-square_icon-icons.com_70470.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\app.cur" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="hotel-signal-in-rounded-square_icon-icons.com_70470.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="data\rooms.json">
@@ -16,6 +25,16 @@
     <None Update="data\users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Theme\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -8,24 +8,27 @@ namespace WpfApp1_lab4_5
     public partial class RoomEditWindow : Window
     {
         private readonly RoomService _roomService = new();
-        private readonly Room? _existingRoom; // null = добавление, не null = редактирование
+        private readonly Room? _existingRoom;
         public bool Saved { get; private set; } = false;
 
-        // Добавление нового номера
         public RoomEditWindow()
         {
             InitializeComponent();
-            TxtWindowTitle.Text = "Добавить номер";
+            TxtWindowTitle.Text = GetText("AddRoomWindow", "Add Room");
             CmbCategory.SelectedIndex = 0;
             ChkAvailable.IsChecked = true;
         }
 
-        // Редактирование существующего
         public RoomEditWindow(Room room) : this()
         {
             _existingRoom = room;
-            TxtWindowTitle.Text = "Редактировать номер";
+            TxtWindowTitle.Text = GetText("EditRoomWindow", "Edit Room");
             FillFields(room);
+        }
+
+        private string GetText(string key, string fallback = "")
+        {
+            return TryFindResource(key)?.ToString() ?? fallback;
         }
 
         private void FillFields(Room room)
@@ -41,12 +44,23 @@ namespace WpfApp1_lab4_5
             TxtAmenities.Text = string.Join(", ", room.Amenities);
             ChkAvailable.IsChecked = room.IsAvailable;
 
-            // Выбираем категорию
-            foreach (ComboBoxItem item in CmbCategory.Items)
+            for (int i = 0; i < CmbCategory.Items.Count; i++)
             {
-                if (item.Content.ToString() == room.Category)
+                if (room.Category == "Одноместный" && i == 0)
                 {
-                    CmbCategory.SelectedItem = item;
+                    CmbCategory.SelectedIndex = 0;
+                    break;
+                }
+
+                if (room.Category == "Двухместный" && i == 1)
+                {
+                    CmbCategory.SelectedIndex = 1;
+                    break;
+                }
+
+                if (room.Category == "Люкс" && i == 2)
+                {
+                    CmbCategory.SelectedIndex = 2;
                     break;
                 }
             }
@@ -54,58 +68,61 @@ namespace WpfApp1_lab4_5
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            // Валидация
             if (string.IsNullOrWhiteSpace(TxtShortName.Text) ||
                 string.IsNullOrWhiteSpace(TxtFullName.Text) ||
                 string.IsNullOrWhiteSpace(TxtPrice.Text))
             {
-                TxtError.Text = "Заполните обязательные поля: название и цена.";
+                TxtError.Text = GetText("RequiredFieldsError", "Fill in required fields.");
                 return;
             }
 
             if (!decimal.TryParse(TxtPrice.Text, out var price) || price <= 0)
             {
-                TxtError.Text = "Введите корректную цену.";
+                TxtError.Text = GetText("InvalidPriceError", "Invalid price.");
                 return;
             }
 
             if (!int.TryParse(TxtFloor.Text, out var floor))
             {
-                TxtError.Text = "Введите корректный этаж.";
+                TxtError.Text = GetText("InvalidFloorError", "Invalid floor.");
                 return;
             }
 
             if (!double.TryParse(TxtArea.Text, out var area))
             {
-                TxtError.Text = "Введите корректную площадь.";
+                TxtError.Text = GetText("InvalidAreaError", "Invalid area.");
                 return;
             }
 
             if (!int.TryParse(TxtCapacity.Text, out var capacity))
             {
-                TxtError.Text = "Введите корректное количество гостей.";
+                TxtError.Text = GetText("InvalidCapacityError", "Invalid capacity.");
                 return;
             }
 
             if (!double.TryParse(TxtRating.Text, out var rating) || rating < 0 || rating > 5)
             {
-                TxtError.Text = "Рейтинг должен быть от 0 до 5.";
+                TxtError.Text = GetText("InvalidRatingError", "Rating must be between 0 and 5.");
                 return;
             }
 
             var amenities = TxtAmenities.Text
-                .Split(',', System.StringSplitOptions.RemoveEmptyEntries)
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(a => a.Trim())
                 .Where(a => !string.IsNullOrEmpty(a))
                 .ToList();
 
-            var category = (CmbCategory.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Одноместный";
+            var category = CmbCategory.SelectedIndex switch
+            {
+                1 => "Двухместный",
+                2 => "Люкс",
+                _ => "Одноместный"
+            };
 
             var all = _roomService.GetAll();
 
             if (_existingRoom == null)
             {
-                // Добавляем новый
                 var newRoom = new Room
                 {
                     Id = all.Count > 0 ? all.Max(r => r.Id) + 1 : 1,
@@ -122,11 +139,11 @@ namespace WpfApp1_lab4_5
                     Amenities = amenities,
                     Images = new List<string>()
                 };
+
                 all.Add(newRoom);
             }
             else
             {
-                // Редактируем существующий
                 var existing = all.FirstOrDefault(r => r.Id == _existingRoom.Id);
                 if (existing != null)
                 {
@@ -146,12 +163,12 @@ namespace WpfApp1_lab4_5
 
             _roomService.Save(all);
             Saved = true;
-            this.Close();
+            Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

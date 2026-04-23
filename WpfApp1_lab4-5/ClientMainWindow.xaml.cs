@@ -14,6 +14,7 @@ namespace WpfApp1_lab4_5
         public ClientMainWindow()
         {
             InitializeComponent();
+            UpdatePriceFilterText();
             LoadRooms();
         }
 
@@ -28,6 +29,24 @@ namespace WpfApp1_lab4_5
             RoomsPanel.ItemsSource = _allRooms;
         }
 
+        private void BtnRu_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageService.ChangeLanguage("ru");
+            UpdateLocalizedTexts();
+        }
+
+        private void BtnEn_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageService.ChangeLanguage("en");
+            UpdateLocalizedTexts();
+        }
+
+        private void UpdateLocalizedTexts()
+        {
+            Title = GetText("ClientWindowTitle", "Hotel Complex");
+            UpdatePriceFilterText();
+        }
+
         // Применяем все фильтры и поиск вместе
         private void ApplyFilters()
         {
@@ -35,7 +54,15 @@ namespace WpfApp1_lab4_5
             if (FilterPrice == null || FilterCategory == null || FilterAvailable == null || SearchBox == null)
                 return;
 
-            var category = (FilterCategory.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "Все";
+            UpdatePriceFilterText();
+
+            var category = FilterCategory.SelectedIndex switch
+            {
+                1 => "Одноместный",
+                2 => "Двухместный",
+                3 => "Люкс",
+                _ => "Все"
+            };
             var maxPrice = (decimal)FilterPrice.Value;
             var onlyAvailable = FilterAvailable.IsChecked == true;
             var query = SearchBox.Text.Trim().ToLower();
@@ -62,6 +89,7 @@ namespace WpfApp1_lab4_5
             FilterPrice.Value = 20000;
             FilterAvailable.IsChecked = false;
             SearchBox.Text = "";
+            UpdatePriceFilterText();
             RoomsPanel.ItemsSource = _allRooms;
         }
 
@@ -74,10 +102,6 @@ namespace WpfApp1_lab4_5
             BtnLogout.Visibility = Visibility.Visible;
             BtnLogin.Visibility = Visibility.Collapsed;
             BtnRegister.Visibility = Visibility.Collapsed;
-
-            // Кнопка добавить — только для админа
-            if (user.Role == "admin")
-                BtnAddRoom.Visibility = Visibility.Visible;
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
@@ -97,7 +121,6 @@ namespace WpfApp1_lab4_5
             BtnLogout.Visibility = Visibility.Collapsed;
             BtnLogin.Visibility = Visibility.Visible;
             BtnRegister.Visibility = Visibility.Visible;
-            BtnAddRoom.Visibility = Visibility.Collapsed;
         }
 
         private void BtnDetails_Click(object sender, RoutedEventArgs e)
@@ -110,9 +133,19 @@ namespace WpfApp1_lab4_5
             }
         }
 
-        private void BtnAddRoom_Click(object sender, RoutedEventArgs e)
+        private string GetText(string key, string fallback = "")
         {
-            // Откроем окно добавления — сделаем на следующем шаге
+            return TryFindResource(key)?.ToString() ?? fallback;
+        }
+
+        private void UpdatePriceFilterText()
+        {
+            if (TxtPriceFilterValue == null || FilterPrice == null)
+                return;
+
+            TxtPriceFilterValue.Text = string.Format(
+                GetText("PriceUpToFormat", "до {0:N0} руб."),
+                FilterPrice.Value);
         }
 
         // Перезагрузить номера после добавления/редактирования
@@ -120,6 +153,11 @@ namespace WpfApp1_lab4_5
         {
             LoadRooms();
             ApplyFilters();
+        }
+
+        private void Filter_Changed(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

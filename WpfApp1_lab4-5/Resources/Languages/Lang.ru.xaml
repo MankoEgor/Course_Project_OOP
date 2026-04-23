@@ -4,10 +4,13 @@
 
     <sys:String x:Key="AppTitle">Гостиничный комплекс</sys:String>
     <sys:String x:Key="AdminPanel">Панель администратора</sys:String>
+
     <sys:String x:Key="Dashboard">Сводка</sys:String>
     <sys:String x:Key="RoomsManagement">Управление номерами</sys:String>
     <sys:String x:Key="Users">Пользователи</sys:String>
     <sys:String x:Key="Bookings">Бронирования</sys:String>
+    <sys:String x:Key="Profile">Личный кабинет</sys:String>
+
     <sys:String x:Key="OpenClientView">Открыть клиентский вид</sys:String>
     <sys:String x:Key="Logout">Выход</sys:String>
 
@@ -15,6 +18,8 @@
     <sys:String x:Key="Edit">Редактировать</sys:String>
     <sys:String x:Key="Delete">Удалить</sys:String>
     <sys:String x:Key="Refresh">Обновить</sys:String>
+    <sys:String x:Key="Save">Сохранить</sys:String>
+    <sys:String x:Key="Cancel">Отмена</sys:String>
 
     <sys:String x:Key="TotalRooms">Всего номеров</sys:String>
     <sys:String x:Key="AvailableRooms">Свободные</sys:String>
@@ -45,7 +50,129 @@
     <sys:String x:Key="PageSubtitleRooms">Добавление, редактирование, удаление и поиск номеров</sys:String>
     <sys:String x:Key="PageSubtitleUsers">Управление клиентами и администраторами</sys:String>
     <sys:String x:Key="PageSubtitleBookings">Контроль активных и завершённых броней</sys:String>
+    <sys:String x:Key="PageSubtitleProfile">Изменение личных данных, языка и темы</sys:String>
 
     <sys:String x:Key="LanguageRu">RU</sys:String>
     <sys:String x:Key="LanguageEn">EN</sys:String>
+    <sys:String x:Key="LightTheme">Светлая тема</sys:String>
+    <sys:String x:Key="DarkTheme">Тёмная тема</sys:String>
+
+    <sys:String x:Key="AddRoomWindow">Добавить номер</sys:String>
+    <sys:String x:Key="EditRoomWindow">Редактировать номер</sys:String>
+
+    <sys:String x:Key="RequiredFieldsError">Заполните обязательные поля: название и цена.</sys:String>
+    <sys:String x:Key="InvalidPriceError">Введите корректную цену.</sys:String>
+    <sys:String x:Key="InvalidFloorError">Введите корректный этаж.</sys:String>
+    <sys:String x:Key="InvalidAreaError">Введите корректную площадь.</sys:String>
+    <sys:String x:Key="InvalidCapacityError">Введите корректное количество гостей.</sys:String>
+    <sys:String x:Key="InvalidRatingError">Рейтинг должен быть от 0 до 5.</sys:String>
+
+    <sys:String x:Key="BookingRequiresLogin">Для бронирования необходимо войти в аккаунт.</sys:String>
+    <sys:String x:Key="LoginRequiredTitle">Требуется вход</sys:String>
+    <sys:String x:Key="RoomUnavailable">Этот номер уже занят.</sys:String>
+    <sys:String x:Key="UnavailableTitle">Недоступно</sys:String>
+    <sys:String x:Key="BookingInDevelopment">Бронирование номера «{0}» — в разработке.</sys:String>
+    <sys:String x:Key="SoonTitle">Скоро</sys:String>
+
+    <sys:String x:Key="RoomUpdated">Номер успешно обновлён.</sys:String>
+    <sys:String x:Key="DoneTitle">Готово</sys:String>
+    <sys:String x:Key="DeleteRoomConfirm">Удалить номер «{0}»?</sys:String>
+    <sys:String x:Key="ConfirmTitle">Подтверждение</sys:String>
+    <sys:String x:Key="RoomDeleted">Номер удалён.</sys:String>
+
+    <sys:String x:Key="AvailableStatus">● Свободен</sys:String>
+    <sys:String x:Key="BusyStatus">● Занят</sys:String>
+    <sys:String x:Key="FloorFormat">{0} этаж</sys:String>
+    <sys:String x:Key="AreaFormat">{0} м²</sys:String>
+    <sys:String x:Key="CapacityFormat">{0} чел.</sys:String>
+
+    <sys:String x:Key="RoomShortName">Краткое название</sys:String>
+    <sys:String x:Key="RoomFullName">Полное название</sys:String>
+    <sys:String x:Key="RoomDescription">Описание</sys:String>
+    <sys:String x:Key="RoomCategory">Категория</sys:String>
+    <sys:String x:Key="RoomPrice">Цена за ночь</sys:String>
+    <sys:String x:Key="RoomFloor">Этаж</sys:String>
+    <sys:String x:Key="RoomArea">Площадь</sys:String>
+    <sys:String x:Key="RoomCapacity">Вместимость</sys:String>
+    <sys:String x:Key="RoomRating">Рейтинг</sys:String>
+    <sys:String x:Key="RoomAmenities">Удобства</sys:String>
+    <sys:String x:Key="RoomAvailable">Свободен</sys:String>
+
+    <sys:String x:Key="ClientWindowTitle">Гостиничный комплекс</sys:String>
+    <sys:String x:Key="Filters">Фильтры</sys:String>
+    <sys:String x:Key="AllCategories">Все</sys:String>
+    <sys:String x:Key="PriceUpTo">Цена до (руб/ночь)</sys:String>
+    <sys:String x:Key="PriceUpToFormat">до {0:N0} руб.</sys:String>
+    <sys:String x:Key="OnlyAvailable">Только свободные</sys:String>
+    <sys:String x:Key="ResetFilters">Сбросить фильтры</sys:String>
+    <sys:String x:Key="SearchRoomPlaceholder">Поиск номера...</sys:String>
+    <sys:String x:Key="AddRoomButton">+ Добавить номер</sys:String>
+    <sys:String x:Key="DetailsButton">Подробнее</sys:String>
+    <sys:String x:Key="FloorShort">этаж</sys:String>
+    <sys:String x:Key="AvailableDot">● Свободен</sys:String>
+    <sys:String x:Key="BusyDot">● Занят</sys:String>
+
+    <sys:String x:Key="Login">Войти</sys:String>
+    <sys:String x:Key="Register">Регистрация</sys:String>
+
+    <sys:String x:Key="CategorySingle">Одноместный</sys:String>
+    <sys:String x:Key="CategoryDouble">Двухместный</sys:String>
+    <sys:String x:Key="CategoryLux">Люкс</sys:String>
+
+    <sys:String x:Key="BookButton">Забронировать</sys:String>
+    <sys:String x:Key="EditButton">Редактировать</sys:String>
+    <sys:String x:Key="DeleteButton">Удалить</sys:String>
+
+    <sys:String x:Key="RoomDetails">Детали номера</sys:String>
+    <sys:String x:Key="RoomStatus">Статус</sys:String>
+
+    <sys:String x:Key="RoomWindowTitle">Номер</sys:String>
+    <sys:String x:Key="RoomShortNameLabel">Короткое название</sys:String>
+    <sys:String x:Key="RoomPriceNight">Цена (руб/ночь)</sys:String>
+    <sys:String x:Key="RoomCapacityMax">Гостей (макс.)</sys:String>
+    <sys:String x:Key="RoomRatingRange">Рейтинг (0.0 - 5.0)</sys:String>
+    <sys:String x:Key="RoomAmenitiesComma">Удобства (через запятую)</sys:String>
+    <sys:String x:Key="RoomAvailableCheckbox">Номер свободен</sys:String>
+
+    <sys:String x:Key="RoomDetailsWindow">Детали номера</sys:String>
+    <sys:String x:Key="RoomPhotoPlaceholder">Фото номера</sys:String>
+    <sys:String x:Key="RoomFloorLabel">Этаж:</sys:String>
+    <sys:String x:Key="RoomAreaLabel">Площадь:</sys:String>
+    <sys:String x:Key="RoomGuestsLabel">Гостей:</sys:String>
+    <sys:String x:Key="RoomPriceSuffix">руб/ночь</sys:String>
+
+    <sys:String x:Key="SelectRoomToEdit">Выберите номер для редактирования.</sys:String>
+    <sys:String x:Key="SelectRoomToDelete">Выберите номер для удаления.</sys:String>
+    <sys:String x:Key="WarningTitle">Внимание</sys:String>
+
+    <sys:String x:Key="HaveAccount">Уже есть аккаунт?</sys:String>
+    <sys:String x:Key="NoAccount">Нет аккаунта?</sys:String>
+
+    <sys:String x:Key="RegisterTitleBig">СОЗДАТЬ АККАУНТ</sys:String>
+    <sys:String x:Key="LoginTitleBig">ВОЙТИ</sys:String>
+
+    <sys:String x:Key="FullNameSign">Полное имя</sys:String>
+    <sys:String x:Key="Email">Email</sys:String>
+    <sys:String x:Key="Password">Пароль</sys:String>
+
+    <sys:String x:Key="RegisterButton">Зарегистрироваться</sys:String>
+    <sys:String x:Key="LoginButton">Войти</sys:String>
+
+    <sys:String x:Key="FillAllFieldsError">Заполните все поля.</sys:String>
+    <sys:String x:Key="InvalidCredentialsError">Неверный логин или пароль.</sys:String>
+    <sys:String x:Key="UserAlreadyExistsError">Пользователь с таким email уже существует.</sys:String>
+    <sys:String x:Key="RegistrationSuccess">Регистрация прошла успешно.</sys:String>
+
+    <sys:String x:Key="ProfileTitle">Личный кабинет</sys:String>
+    <sys:String x:Key="ProfileName">Полное имя</sys:String>
+    <sys:String x:Key="ProfileEmail">Email</sys:String>
+    <sys:String x:Key="ProfileRole">Роль</sys:String>
+    <sys:String x:Key="ProfileSave">Сохранить изменения</sys:String>
+    <sys:String x:Key="InterfaceSettings">Настройки интерфейса</sys:String>
+    <sys:String x:Key="LanguageLabel">Язык</sys:String>
+    <sys:String x:Key="ThemeLabel">Тема</sys:String>
+    <sys:String x:Key="RoleAdmin">Администратор</sys:String>
+    <sys:String x:Key="RoleClient">Клиент</sys:String>
+    <sys:String x:Key="ProfileSaved">Данные профиля сохранены.</sys:String>
+
 </ResourceDictionary>

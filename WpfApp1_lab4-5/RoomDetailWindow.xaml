@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfApp1_lab4_5.RoomDetailWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Детали номера"
+        Title="{DynamicResource RoomDetailsWindow}"
         Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="#FFFCFC">
@@ -9,100 +9,124 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="280"/>
-            <!-- фото -->
             <RowDefinition Height="*"/>
-            <!-- информация -->
             <RowDefinition Height="Auto"/>
-            <!-- кнопки -->
         </Grid.RowDefinitions>
 
-        <!-- ФОТО / ЗАГЛУШКА -->
         <Border Grid.Row="0" Background="#F5F5F0">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="🏨" FontSize="80" HorizontalAlignment="Center"/>
-                <TextBlock Text="Фото номера" Foreground="#aaaaaa"
-                           HorizontalAlignment="Center" Margin="0,8,0,0"/>
+                <TextBlock Text="{DynamicResource RoomPhotoPlaceholder}"
+                           Foreground="#aaaaaa"
+                           HorizontalAlignment="Center"
+                           Margin="0,8,0,0"/>
             </StackPanel>
         </Border>
 
-        <!-- Бейдж категории поверх фото -->
-        <Border Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Left"
-                Margin="16" Background="#6F4E37" CornerRadius="6" Padding="10,4">
+        <Border Grid.Row="0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="16"
+                Background="#6F4E37"
+                CornerRadius="6"
+                Padding="10,4">
             <TextBlock x:Name="TxtCategory" Foreground="#FFFCFC" FontSize="13"/>
         </Border>
 
-        <!-- ИНФОРМАЦИЯ -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="24,20,24,20">
 
-                <!-- Название и рейтинг -->
                 <Grid Margin="0,0,0,12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
+
                     <TextBlock x:Name="TxtFullName"
                                Grid.Column="0"
-                               FontSize="22" FontWeight="Bold"
+                               FontSize="22"
+                               FontWeight="Bold"
                                Foreground="#1A1A1A"
                                TextWrapping="Wrap"/>
-                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
                                 VerticalAlignment="Center">
                         <TextBlock Text="★" Foreground="#B8860B" FontSize="18"/>
                         <TextBlock x:Name="TxtRating"
-                                   Foreground="#B8860B" FontSize="18"
+                                   Foreground="#B8860B"
+                                   FontSize="18"
                                    Margin="4,0,0,0"/>
                     </StackPanel>
                 </Grid>
 
-                <!-- Характеристики -->
                 <WrapPanel Margin="0,0,0,14">
-                    <Border Background="#F5F5F0" CornerRadius="6"
-                            Padding="10,4" Margin="0,0,8,8">
+                    <Border Background="#F5F5F0"
+                            CornerRadius="6"
+                            Padding="10,4"
+                            Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Этаж: " Foreground="#888" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomFloorLabel}" Foreground="#888" FontSize="13"/>
                             <TextBlock x:Name="TxtFloor" Foreground="#1A1A1A" FontSize="13"/>
                         </StackPanel>
                     </Border>
-                    <Border Background="#F5F5F0" CornerRadius="6"
-                            Padding="10,4" Margin="0,0,8,8">
+
+                    <Border Background="#F5F5F0"
+                            CornerRadius="6"
+                            Padding="10,4"
+                            Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Площадь: " Foreground="#888" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomAreaLabel}" Foreground="#888" FontSize="13"/>
                             <TextBlock x:Name="TxtArea" Foreground="#1A1A1A" FontSize="13"/>
                         </StackPanel>
                     </Border>
-                    <Border Background="#F5F5F0" CornerRadius="6"
-                            Padding="10,4" Margin="0,0,8,8">
+
+                    <Border Background="#F5F5F0"
+                            CornerRadius="6"
+                            Padding="10,4"
+                            Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Гостей: " Foreground="#888" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomGuestsLabel}" Foreground="#888" FontSize="13"/>
                             <TextBlock x:Name="TxtCapacity" Foreground="#1A1A1A" FontSize="13"/>
                         </StackPanel>
                     </Border>
-                    <Border x:Name="BadgeAvailable" CornerRadius="6"
-                            Padding="10,4" Margin="0,0,8,8">
+
+                    <Border x:Name="BadgeAvailable"
+                            CornerRadius="6"
+                            Padding="10,4"
+                            Margin="0,0,8,8">
                         <TextBlock x:Name="TxtAvailable" FontSize="13"/>
                     </Border>
                 </WrapPanel>
 
-                <!-- Описание -->
-                <TextBlock Text="Описание" FontSize="15" FontWeight="Bold"
-                           Foreground="#1A1A1A" Margin="0,0,0,6"/>
+                <TextBlock Text="{DynamicResource RoomDescription}"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           Foreground="#1A1A1A"
+                           Margin="0,0,0,6"/>
+
                 <TextBlock x:Name="TxtDescription"
-                           Foreground="#444" FontSize="14"
-                           TextWrapping="Wrap" LineHeight="22"
+                           Foreground="#444"
+                           FontSize="14"
+                           TextWrapping="Wrap"
+                           LineHeight="22"
                            Margin="0,0,0,16"/>
 
-                <!-- Удобства -->
-                <TextBlock Text="Удобства" FontSize="15" FontWeight="Bold"
-                           Foreground="#1A1A1A" Margin="0,0,0,8"/>
+                <TextBlock Text="{DynamicResource RoomAmenities}"
+                           FontSize="15"
+                           FontWeight="Bold"
+                           Foreground="#1A1A1A"
+                           Margin="0,0,0,8"/>
+
                 <WrapPanel x:Name="AmenitiesPanel" Margin="0,0,0,8"/>
 
             </StackPanel>
         </ScrollViewer>
 
-        <!-- КНОПКИ ВНИЗУ -->
-        <Border Grid.Row="2" Background="White"
-                BorderBrush="#e0e0e0" BorderThickness="0,1,0,0"
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#e0e0e0"
+                BorderThickness="0,1,0,0"
                 Padding="24,14">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -110,24 +134,26 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Цена -->
-                <StackPanel Grid.Column="0" Orientation="Horizontal"
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
                             VerticalAlignment="Center">
                     <TextBlock x:Name="TxtPrice"
-                               FontSize="24" FontWeight="Bold"
+                               FontSize="24"
+                               FontWeight="Bold"
                                Foreground="#6F4E37"/>
-                    <TextBlock Text=" руб/ночь"
-                               FontSize="14" Foreground="#888"
-                               VerticalAlignment="Bottom" Margin="0,0,0,4"/>
+                    <TextBlock Text="{DynamicResource RoomPriceSuffix}"
+                               FontSize="14"
+                               Foreground="#888"
+                               VerticalAlignment="Bottom"
+                               Margin="0,0,0,4"/>
                 </StackPanel>
 
-                <!-- Кнопки -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
 
-                    <!-- Только для админа -->
                     <Button x:Name="BtnEdit"
-                            Content="Редактировать"
-                            Height="38" Width="140"
+                            Content="{DynamicResource EditButton}"
+                            Height="38"
+                            Width="140"
                             Margin="0,0,10,0"
                             Background="#4A5D4E"
                             Foreground="#FFFCFC"
@@ -150,8 +176,9 @@
                     </Button>
 
                     <Button x:Name="BtnDelete"
-                            Content="Удалить"
-                            Height="38" Width="100"
+                            Content="{DynamicResource DeleteButton}"
+                            Height="38"
+                            Width="100"
                             Margin="0,0,10,0"
                             Background="#cc4444"
                             Foreground="#FFFCFC"
@@ -173,10 +200,10 @@
                         </Button.Style>
                     </Button>
 
-                    <!-- Для клиента -->
                     <Button x:Name="BtnBook"
-                            Content="Забронировать"
-                            Height="38" Width="150"
+                            Content="{DynamicResource BookButton}"
+                            Height="38"
+                            Width="150"
                             Background="#6F4E37"
                             Foreground="#FFFCFC"
                             BorderThickness="0"
@@ -204,6 +231,5 @@
                 </StackPanel>
             </Grid>
         </Border>
-
     </Grid>
 </Window>

@@ -4,10 +4,13 @@
 
     <sys:String x:Key="AppTitle">Hotel Complex</sys:String>
     <sys:String x:Key="AdminPanel">Admin Panel</sys:String>
+
     <sys:String x:Key="Dashboard">Dashboard</sys:String>
     <sys:String x:Key="RoomsManagement">Room Management</sys:String>
     <sys:String x:Key="Users">Users</sys:String>
     <sys:String x:Key="Bookings">Bookings</sys:String>
+    <sys:String x:Key="Profile">Profile</sys:String>
+
     <sys:String x:Key="OpenClientView">Open Client View</sys:String>
     <sys:String x:Key="Logout">Logout</sys:String>
 
@@ -15,6 +18,8 @@
     <sys:String x:Key="Edit">Edit</sys:String>
     <sys:String x:Key="Delete">Delete</sys:String>
     <sys:String x:Key="Refresh">Refresh</sys:String>
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
 
     <sys:String x:Key="TotalRooms">Total Rooms</sys:String>
     <sys:String x:Key="AvailableRooms">Available</sys:String>
@@ -38,6 +43,23 @@
     <sys:String x:Key="Available">Available</sys:String>
     <sys:String x:Key="Rating">Rating</sys:String>
 
+    <sys:String x:Key="ClientWindowTitle">Hotel Complex</sys:String>
+    <sys:String x:Key="Filters">Filters</sys:String>
+    <sys:String x:Key="AllCategories">All</sys:String>
+    <sys:String x:Key="PriceUpTo">Price up to (per night)</sys:String>
+    <sys:String x:Key="PriceUpToFormat">up to {0:N0}</sys:String>
+    <sys:String x:Key="OnlyAvailable">Only available</sys:String>
+    <sys:String x:Key="ResetFilters">Reset filters</sys:String>
+    <sys:String x:Key="SearchRoomPlaceholder">Search room...</sys:String>
+    <sys:String x:Key="AddRoomButton">+ Add room</sys:String>
+    <sys:String x:Key="DetailsButton">Details</sys:String>
+    <sys:String x:Key="FloorShort">floor</sys:String>
+    <sys:String x:Key="AvailableDot">● Available</sys:String>
+    <sys:String x:Key="BusyDot">● Occupied</sys:String>
+
+    <sys:String x:Key="Login">Login</sys:String>
+    <sys:String x:Key="Register">Register</sys:String>
+
     <sys:String x:Key="UsersStub">This section is a placeholder for now. Later you can add a list of clients and administrators here.</sys:String>
     <sys:String x:Key="BookingsStub">This section is a placeholder for now. Later you can add bookings, dates, status, and client info here.</sys:String>
 
@@ -45,7 +67,113 @@
     <sys:String x:Key="PageSubtitleRooms">Adding, editing, deleting, and searching rooms</sys:String>
     <sys:String x:Key="PageSubtitleUsers">Manage clients and administrators</sys:String>
     <sys:String x:Key="PageSubtitleBookings">Control active and completed bookings</sys:String>
+    <sys:String x:Key="PageSubtitleProfile">Edit personal data, language, and theme</sys:String>
 
     <sys:String x:Key="LanguageRu">RU</sys:String>
     <sys:String x:Key="LanguageEn">EN</sys:String>
+    <sys:String x:Key="LightTheme">Light theme</sys:String>
+    <sys:String x:Key="DarkTheme">Dark theme</sys:String>
+
+    <sys:String x:Key="AddRoomWindow">Add Room</sys:String>
+    <sys:String x:Key="EditRoomWindow">Edit Room</sys:String>
+
+    <sys:String x:Key="RequiredFieldsError">Fill in the required fields: name and price.</sys:String>
+    <sys:String x:Key="InvalidPriceError">Enter a valid price.</sys:String>
+    <sys:String x:Key="InvalidFloorError">Enter a valid floor.</sys:String>
+    <sys:String x:Key="InvalidAreaError">Enter a valid area.</sys:String>
+    <sys:String x:Key="InvalidCapacityError">Enter a valid guest count.</sys:String>
+    <sys:String x:Key="InvalidRatingError">Rating must be between 0 and 5.</sys:String>
+
+    <sys:String x:Key="BookingRequiresLogin">You need to log in to book a room.</sys:String>
+    <sys:String x:Key="LoginRequiredTitle">Login Required</sys:String>
+    <sys:String x:Key="RoomUnavailable">This room is already occupied.</sys:String>
+    <sys:String x:Key="UnavailableTitle">Unavailable</sys:String>
+    <sys:String x:Key="BookingInDevelopment">Booking for room “{0}” is under development.</sys:String>
+    <sys:String x:Key="SoonTitle">Coming Soon</sys:String>
+
+    <sys:String x:Key="RoomUpdated">Room updated successfully.</sys:String>
+    <sys:String x:Key="DoneTitle">Done</sys:String>
+    <sys:String x:Key="DeleteRoomConfirm">Delete room “{0}”?</sys:String>
+    <sys:String x:Key="ConfirmTitle">Confirmation</sys:String>
+    <sys:String x:Key="RoomDeleted">Room deleted.</sys:String>
+
+    <sys:String x:Key="AvailableStatus">● Available</sys:String>
+    <sys:String x:Key="BusyStatus">● Occupied</sys:String>
+    <sys:String x:Key="FloorFormat">Floor {0}</sys:String>
+    <sys:String x:Key="AreaFormat">{0} m²</sys:String>
+    <sys:String x:Key="CapacityFormat">{0} guests</sys:String>
+
+    <sys:String x:Key="RoomShortName">Short Name</sys:String>
+    <sys:String x:Key="RoomFullName">Full Name</sys:String>
+    <sys:String x:Key="RoomDescription">Description</sys:String>
+    <sys:String x:Key="RoomCategory">Category</sys:String>
+    <sys:String x:Key="RoomPrice">Price per Night</sys:String>
+    <sys:String x:Key="RoomFloor">Floor</sys:String>
+    <sys:String x:Key="RoomArea">Area</sys:String>
+    <sys:String x:Key="RoomCapacity">Capacity</sys:String>
+    <sys:String x:Key="RoomRating">Rating</sys:String>
+    <sys:String x:Key="RoomAmenities">Amenities</sys:String>
+    <sys:String x:Key="RoomAvailable">Available</sys:String>
+
+    <sys:String x:Key="CategorySingle">Single</sys:String>
+    <sys:String x:Key="CategoryDouble">Double</sys:String>
+    <sys:String x:Key="CategoryLux">Luxury</sys:String>
+
+    <sys:String x:Key="BookButton">Book</sys:String>
+    <sys:String x:Key="EditButton">Edit</sys:String>
+    <sys:String x:Key="DeleteButton">Delete</sys:String>
+
+    <sys:String x:Key="RoomDetails">Room Details</sys:String>
+    <sys:String x:Key="RoomStatus">Status</sys:String>
+
+    <sys:String x:Key="RoomWindowTitle">Room</sys:String>
+    <sys:String x:Key="RoomShortNameLabel">Short name</sys:String>
+    <sys:String x:Key="RoomPriceNight">Price (per night)</sys:String>
+    <sys:String x:Key="RoomCapacityMax">Guests (max)</sys:String>
+    <sys:String x:Key="RoomRatingRange">Rating (0.0 - 5.0)</sys:String>
+    <sys:String x:Key="RoomAmenitiesComma">Amenities (comma separated)</sys:String>
+    <sys:String x:Key="RoomAvailableCheckbox">Room is available</sys:String>
+
+    <sys:String x:Key="RoomDetailsWindow">Room Details</sys:String>
+    <sys:String x:Key="RoomPhotoPlaceholder">Room photo</sys:String>
+    <sys:String x:Key="RoomFloorLabel">Floor:</sys:String>
+    <sys:String x:Key="RoomAreaLabel">Area:</sys:String>
+    <sys:String x:Key="RoomGuestsLabel">Guests:</sys:String>
+    <sys:String x:Key="RoomPriceSuffix">per night</sys:String>
+
+    <sys:String x:Key="SelectRoomToEdit">Select a room to edit.</sys:String>
+    <sys:String x:Key="SelectRoomToDelete">Select a room to delete.</sys:String>
+    <sys:String x:Key="WarningTitle">Warning</sys:String>
+
+    <sys:String x:Key="HaveAccount">Already have an account?</sys:String>
+    <sys:String x:Key="NoAccount">Don't have an account?</sys:String>
+
+    <sys:String x:Key="RegisterTitleBig">CREATE ACCOUNT</sys:String>
+    <sys:String x:Key="LoginTitleBig">LOGIN</sys:String>
+
+    <sys:String x:Key="FullNameSign">Full name</sys:String>
+    <sys:String x:Key="Email">Email</sys:String>
+    <sys:String x:Key="Password">Password</sys:String>
+
+    <sys:String x:Key="RegisterButton">Register</sys:String>
+    <sys:String x:Key="LoginButton">Login</sys:String>
+
+
+    <sys:String x:Key="FillAllFieldsError">Fill in all fields.</sys:String>
+    <sys:String x:Key="InvalidCredentialsError">Invalid email or password.</sys:String>
+    <sys:String x:Key="UserAlreadyExistsError">A user with this email already exists.</sys:String>
+    <sys:String x:Key="RegistrationSuccess">Registration completed successfully.</sys:String>
+
+
+    <sys:String x:Key="ProfileTitle">Profile</sys:String>
+    <sys:String x:Key="ProfileName">Full Name</sys:String>
+    <sys:String x:Key="ProfileEmail">Email</sys:String>
+    <sys:String x:Key="ProfileRole">Role</sys:String>
+    <sys:String x:Key="ProfileSave">Save Changes</sys:String>
+    <sys:String x:Key="InterfaceSettings">Interface Settings</sys:String>
+    <sys:String x:Key="LanguageLabel">Language</sys:String>
+    <sys:String x:Key="ThemeLabel">Theme</sys:String>
+    <sys:String x:Key="RoleAdmin">Administrator</sys:String>
+    <sys:String x:Key="RoleClient">Client</sys:String>
+    <sys:String x:Key="ProfileSaved">Profile data saved.</sys:String>
 </ResourceDictionary>

@@ -8,7 +8,7 @@ namespace WpfApp1_lab4_5
 {
     public partial class LoginWindow : Window
     {
-        private List<User> _users;
+        private List<User> _users = new();
 
         public LoginWindow()
         {
@@ -18,30 +18,36 @@ namespace WpfApp1_lab4_5
 
         private void LoadUsers()
         {
-            var path = "Data/users.json";
+            var path = "data/users.json";
             if (!File.Exists(path))
             {
                 _users = new List<User>();
                 return;
             }
+
             var json = File.ReadAllText(path);
             _users = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+        }
+
+        private string GetText(string key, string fallback = "")
+        {
+            return TryFindResource(key)?.ToString() ?? fallback;
         }
 
         private void SwitchToRegister(object sender, MouseButtonEventArgs e)
         {
             new RegWindow().Show();
-            this.Close();
+            Close();
         }
 
         private void BtnAction_Click(object sender, RoutedEventArgs e)
         {
-            var email = TxtLogin.Text;
+            var email = TxtLogin.Text.Trim();
             var password = TxtPassword.Password;
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                TxtError.Text = "Заполните все поля.";
+                TxtError.Text = GetText("FillAllFieldsError", "Fill in all fields.");
                 return;
             }
 
@@ -50,11 +56,10 @@ namespace WpfApp1_lab4_5
 
             if (user == null)
             {
-                TxtError.Text = "Неверный email или пароль.";
+                TxtError.Text = GetText("InvalidCredentialsError", "Invalid email or password.");
                 return;
             }
 
-            // Открываем нужное окно по роли
             if (user.Role == "admin")
             {
                 new AdminMainWindow(user).Show();
@@ -64,7 +69,7 @@ namespace WpfApp1_lab4_5
                 new ClientMainWindow(user).Show();
             }
 
-            this.Close();
+            Close();
         }
     }
 }

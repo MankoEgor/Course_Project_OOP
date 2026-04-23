@@ -7,7 +7,7 @@ namespace WpfApp1_lab4_5
 {
     public partial class RegWindow : Window
     {
-        private List<User> _users;
+        private List<User> _users = new();
 
         public RegWindow()
         {
@@ -17,51 +17,57 @@ namespace WpfApp1_lab4_5
 
         private void LoadUsers()
         {
-            var path = "Data/users.json";
+            var path = "data/users.json";
             if (!File.Exists(path))
             {
                 _users = new List<User>();
                 return;
             }
+
             var json = File.ReadAllText(path);
             _users = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+        }
+
+        private string GetText(string key, string fallback = "")
+        {
+            return TryFindResource(key)?.ToString() ?? fallback;
         }
 
         private void BtnSwitch_Click(object sender, RoutedEventArgs e)
         {
             new LoginWindow().Show();
-            this.Close();
+            Close();
         }
 
         private void BtnAction_Click(object sender, RoutedEventArgs e)
         {
             var fullName = TxtFullName.Text.Trim();
-            var email = TxtLogin.Text;
+            var email = TxtLogin.Text.Trim();
             var password = TxtPassword.Password;
 
-            // Валидация
-            if (string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(fullName) ||
+                string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(password))
             {
-                TxtError.Text = "Заполните все поля.";
+                TxtError.Text = GetText("FillAllFieldsError", "Fill in all fields.");
                 return;
             }
 
             if (password.Length < 6)
             {
-                TxtError.Text = "Пароль должен быть не менее 6 символов.";
+                TxtError.Text = GetText("PasswordMinLengthError", "Password must be at least 6 characters long.");
                 return;
             }
 
             if (_users.Any(u => u.Email == email))
             {
-                TxtError.Text = "Пользователь с таким email уже существует.";
+                TxtError.Text = GetText("UserAlreadyExistsError", "A user with this email already exists.");
                 return;
             }
 
-            // Создаём нового пользователя — роль всегда "client"
             var newUser = new User
             {
-                Id = _users.Count + 1,
+                Id = _users.Count > 0 ? _users.Max(u => u.Id) + 1 : 1,
                 Email = email,
                 Password = password,
                 Role = "client",
@@ -73,12 +79,14 @@ namespace WpfApp1_lab4_5
             var json = JsonSerializer.Serialize(_users, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText("Data/users.json", json);
 
-            // Переходим на вход
-            MessageBox.Show("Регистрация прошла успешно! Войдите в аккаунт.", "Готово",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(
+                GetText("RegistrationSuccessMessage", "Registration completed successfully! Please sign in."),
+                GetText("DoneTitle", "Done"),
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
 
             new LoginWindow().Show();
-            this.Close();
+            Close();
         }
     }
 }
