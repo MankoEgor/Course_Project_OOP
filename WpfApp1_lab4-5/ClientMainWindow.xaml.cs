@@ -148,16 +148,10 @@ namespace WpfApp1_lab4_5
                 FilterPrice.Value);
         }
 
-        // Перезагрузить номера после добавления/редактирования
         public void RefreshRooms()
         {
             LoadRooms();
             ApplyFilters();
-        }
-
-        private void Filter_Changed(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

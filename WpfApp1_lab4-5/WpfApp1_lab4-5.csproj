@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <None Remove="Assets\app.cur" />
+    <None Remove="Assets\dark_mode_24dp_FFFFFF.png" />
+    <None Remove="Assets\light_mode_24dp_FFFFFF.png" />
+    <None Remove="Assets\redo_24dp_FFFFFF.png" />
+    <None Remove="Assets\undo_24dp_FFFFFF.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +38,18 @@
   <ItemGroup>
     <Resource Include="Assets\app.cur">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\dark_mode_24dp_FFFFFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\light_mode_24dp_FFFFFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\redo_24dp_FFFFFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\undo_24dp_FFFFFF.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

@@ -4,7 +4,7 @@
         Title="{DynamicResource RoomDetailsWindow}"
         Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
-        Background="#FFFCFC">
+        Background="{DynamicResource BrushWindowBackground}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -13,11 +13,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#F5F5F0">
+        <Border Grid.Row="0" Background="{DynamicResource BrushBadgeBackground}">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="🏨" FontSize="80" HorizontalAlignment="Center"/>
                 <TextBlock Text="{DynamicResource RoomPhotoPlaceholder}"
-                           Foreground="#aaaaaa"
+                           Foreground="{DynamicResource BrushTextMuted}"
                            HorizontalAlignment="Center"
                            Margin="0,8,0,0"/>
             </StackPanel>
@@ -27,10 +27,12 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Margin="16"
-                Background="#6F4E37"
+                Background="{DynamicResource BrushPrimary}"
                 CornerRadius="6"
                 Padding="10,4">
-            <TextBlock x:Name="TxtCategory" Foreground="#FFFCFC" FontSize="13"/>
+            <TextBlock x:Name="TxtCategory"
+                       Foreground="{DynamicResource BrushTextOnDark}"
+                       FontSize="13"/>
         </Border>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
@@ -46,48 +48,68 @@
                                Grid.Column="0"
                                FontSize="22"
                                FontWeight="Bold"
-                               Foreground="#1A1A1A"
+                               Foreground="{DynamicResource BrushTextPrimary}"
                                TextWrapping="Wrap"/>
 
                     <StackPanel Grid.Column="1"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Center">
-                        <TextBlock Text="★" Foreground="#B8860B" FontSize="18"/>
+                        <TextBlock Text="★"
+                                   Foreground="{DynamicResource BrushAccent}"
+                                   FontSize="18"/>
                         <TextBlock x:Name="TxtRating"
-                                   Foreground="#B8860B"
+                                   Foreground="{DynamicResource BrushAccent}"
                                    FontSize="18"
                                    Margin="4,0,0,0"/>
                     </StackPanel>
                 </Grid>
 
                 <WrapPanel Margin="0,0,0,14">
-                    <Border Background="#F5F5F0"
+                    <Border Background="{DynamicResource BrushBadgeBackground}"
+                            BorderBrush="{DynamicResource BrushBorder}"
+                            BorderThickness="1"
                             CornerRadius="6"
                             Padding="10,4"
                             Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{DynamicResource RoomFloorLabel}" Foreground="#888" FontSize="13"/>
-                            <TextBlock x:Name="TxtFloor" Foreground="#1A1A1A" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomFloorLabel}"
+                                       Foreground="{DynamicResource BrushTextSecondary}"
+                                       FontSize="13"/>
+                            <TextBlock x:Name="TxtFloor"
+                                       Foreground="{DynamicResource BrushTextPrimary}"
+                                       FontSize="13"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#F5F5F0"
+                    <Border Background="{DynamicResource BrushBadgeBackground}"
+                            BorderBrush="{DynamicResource BrushBorder}"
+                            BorderThickness="1"
                             CornerRadius="6"
                             Padding="10,4"
                             Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{DynamicResource RoomAreaLabel}" Foreground="#888" FontSize="13"/>
-                            <TextBlock x:Name="TxtArea" Foreground="#1A1A1A" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomAreaLabel}"
+                                       Foreground="{DynamicResource BrushTextSecondary}"
+                                       FontSize="13"/>
+                            <TextBlock x:Name="TxtArea"
+                                       Foreground="{DynamicResource BrushTextPrimary}"
+                                       FontSize="13"/>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#F5F5F0"
+                    <Border Background="{DynamicResource BrushBadgeBackground}"
+                            BorderBrush="{DynamicResource BrushBorder}"
+                            BorderThickness="1"
                             CornerRadius="6"
                             Padding="10,4"
                             Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{DynamicResource RoomGuestsLabel}" Foreground="#888" FontSize="13"/>
-                            <TextBlock x:Name="TxtCapacity" Foreground="#1A1A1A" FontSize="13"/>
+                            <TextBlock Text="{DynamicResource RoomGuestsLabel}"
+                                       Foreground="{DynamicResource BrushTextSecondary}"
+                                       FontSize="13"/>
+                            <TextBlock x:Name="TxtCapacity"
+                                       Foreground="{DynamicResource BrushTextPrimary}"
+                                       FontSize="13"/>
                         </StackPanel>
                     </Border>
 
@@ -102,11 +124,11 @@
                 <TextBlock Text="{DynamicResource RoomDescription}"
                            FontSize="15"
                            FontWeight="Bold"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
 
                 <TextBlock x:Name="TxtDescription"
-                           Foreground="#444"
+                           Foreground="{DynamicResource BrushTextSecondary}"
                            FontSize="14"
                            TextWrapping="Wrap"
                            LineHeight="22"
@@ -115,7 +137,7 @@
                 <TextBlock Text="{DynamicResource RoomAmenities}"
                            FontSize="15"
                            FontWeight="Bold"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,8"/>
 
                 <WrapPanel x:Name="AmenitiesPanel" Margin="0,0,0,8"/>
@@ -124,8 +146,8 @@
         </ScrollViewer>
 
         <Border Grid.Row="2"
-                Background="White"
-                BorderBrush="#e0e0e0"
+                Background="{DynamicResource BrushPanelBackground}"
+                BorderBrush="{DynamicResource BrushBorder}"
                 BorderThickness="0,1,0,0"
                 Padding="24,14">
             <Grid>
@@ -140,12 +162,12 @@
                     <TextBlock x:Name="TxtPrice"
                                FontSize="24"
                                FontWeight="Bold"
-                               Foreground="#6F4E37"/>
+                               Foreground="{DynamicResource BrushPrimary}"/>
                     <TextBlock Text="{DynamicResource RoomPriceSuffix}"
                                FontSize="14"
-                               Foreground="#888"
+                               Foreground="{DynamicResource BrushTextSecondary}"
                                VerticalAlignment="Bottom"
-                               Margin="0,0,0,4"/>
+                               Margin="4,0,0,4"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -155,78 +177,25 @@
                             Height="38"
                             Width="140"
                             Margin="0,0,10,0"
-                            Background="#4A5D4E"
-                            Foreground="#FFFCFC"
-                            BorderThickness="0"
+                            Background="{DynamicResource BrushSuccess}"
                             Visibility="Collapsed"
-                            Click="BtnEdit_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Click="BtnEdit_Click"/>
 
                     <Button x:Name="BtnDelete"
                             Content="{DynamicResource DeleteButton}"
                             Height="38"
                             Width="100"
                             Margin="0,0,10,0"
-                            Background="#cc4444"
-                            Foreground="#FFFCFC"
-                            BorderThickness="0"
+                            Background="{DynamicResource BrushDanger}"
                             Visibility="Collapsed"
-                            Click="BtnDelete_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Click="BtnDelete_Click"/>
 
                     <Button x:Name="BtnBook"
                             Content="{DynamicResource BookButton}"
                             Height="38"
                             Width="150"
-                            Background="#6F4E37"
-                            Foreground="#FFFCFC"
-                            BorderThickness="0"
-                            Click="BtnBook_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#5a3e2b"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Background="{DynamicResource BrushPrimary}"
+                            Click="BtnBook_Click"/>
 
                 </StackPanel>
             </Grid>

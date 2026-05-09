@@ -60,7 +60,7 @@ namespace WpfApp1_lab4_5.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/WpfApp1_lab4-5;V1.0.0.0;component/usercontrols/statcardcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/WpfApp1_lab4-5;component/usercontrols/statcardcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\StatCardControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

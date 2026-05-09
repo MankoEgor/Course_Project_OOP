@@ -16,11 +16,16 @@ namespace WpfApp1_lab4_5
         private readonly User _user;
         private List<Room> _allRooms = new();
 
+        private readonly Stack<List<Room>> _undoStack = new();
+        private readonly Stack<List<Room>> _redoStack = new();
+
         private readonly Brush _defaultBrush = Brushes.Transparent;
 
         public ICommand AddRoomCommand { get; }
         public ICommand RefreshRoomsCommand { get; }
         public ICommand DeleteRoomCommand { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
 
         public AdminMainWindow(User user)
         {
@@ -29,6 +34,8 @@ namespace WpfApp1_lab4_5
             AddRoomCommand = new RelayCommand(_ => ExecuteAddRoom());
             RefreshRoomsCommand = new RelayCommand(_ => RefreshAll());
             DeleteRoomCommand = new RelayCommand(_ => ExecuteDeleteRoom(), _ => GetSelectedRoom() != null);
+            UndoCommand = new RelayCommand(_ => Undo(), _ => _undoStack.Count > 0);
+            RedoCommand = new RelayCommand(_ => Redo(), _ => _redoStack.Count > 0);
 
             DataContext = this;
 
@@ -48,14 +55,75 @@ namespace WpfApp1_lab4_5
             return TryFindResource(key)?.ToString() ?? fallback;
         }
 
+
+        private List<Room> CloneRooms(List<Room> rooms)
+        {
+            return rooms.Select(r => new Room
+            {
+                Id = r.Id,
+                ShortName = r.ShortName,
+                FullName = r.FullName,
+                Description = r.Description,
+                Category = r.Category,
+                PricePerNight = r.PricePerNight,
+                Floor = r.Floor,
+                Area = r.Area,
+                Capacity = r.Capacity,
+                Rating = r.Rating,
+                IsAvailable = r.IsAvailable,
+                Amenities = r.Amenities != null ? new List<string>(r.Amenities) : new List<string>(),
+                Images = r.Images != null ? new List<string>(r.Images) : new List<string>()
+            }).ToList();
+        }
+
+        private void SaveUndoState()
+        {
+            _undoStack.Push(CloneRooms(_allRooms));
+            _redoStack.Clear();
+            CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void Undo()
+        {
+            if (_undoStack.Count == 0)
+                return;
+
+            _redoStack.Push(CloneRooms(_allRooms));
+            _allRooms = _undoStack.Pop();
+            _roomService.Save(_allRooms);
+            RefreshAll();
+            CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void Redo()
+        {
+            if (_redoStack.Count == 0)
+                return;
+
+            _undoStack.Push(CloneRooms(_allRooms));
+            _allRooms = _redoStack.Pop();
+            _roomService.Save(_allRooms);
+            RefreshAll();
+            CommandManager.InvalidateRequerySuggested();
+        }
+
         private void ExecuteAddRoom()
         {
+            SaveUndoState();
+
             var window = new RoomEditWindow();
             window.Owner = this;
             window.ShowDialog();
 
             if (window.Saved)
+            {
                 RefreshAll();
+            }
+            else if (_undoStack.Count > 0)
+            {
+                _undoStack.Pop();
+                CommandManager.InvalidateRequerySuggested();
+            }
         }
 
         private void ExecuteDeleteRoom()
@@ -80,10 +148,13 @@ namespace WpfApp1_lab4_5
 
             if (result == MessageBoxResult.Yes)
             {
+                SaveUndoState();
+
                 var all = _roomService.GetAll();
                 all.RemoveAll(r => r.Id == selectedRoom.Id);
                 _roomService.Save(all);
                 RefreshAll();
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -234,6 +305,7 @@ namespace WpfApp1_lab4_5
             LoadRooms();
             UpdateDashboard();
             ApplyRoomSearch();
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private void ApplyRoomSearch()
@@ -318,12 +390,7 @@ namespace WpfApp1_lab4_5
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var window = new RoomEditWindow();
-            window.Owner = this;
-            window.ShowDialog();
-
-            if (window.Saved)
-                RefreshAll();
+            ExecuteAddRoom();
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -340,46 +407,36 @@ namespace WpfApp1_lab4_5
                 return;
             }
 
+            SaveUndoState();
+
             var window = new RoomEditWindow(selectedRoom);
             window.Owner = this;
             window.ShowDialog();
 
             if (window.Saved)
+            {
                 RefreshAll();
+            }
+            else if (_undoStack.Count > 0)
+            {
+                _undoStack.Pop();
+                CommandManager.InvalidateRequerySuggested();
+            }
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var selectedRoom = GetSelectedRoom();
-
-            if (selectedRoom == null)
-            {
-                MessageBox.Show(
-                    GetText("SelectRoomToDelete", "Select a room to delete."),
-                    GetText("WarningTitle", "Warning"),
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-                return;
-            }
-
-            var result = MessageBox.Show(
-                string.Format(GetText("DeleteRoomConfirm", "Delete room “{0}”?"), selectedRoom.ShortName),
-                GetText("ConfirmTitle", "Confirmation"),
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                var all = _roomService.GetAll();
-                all.RemoveAll(r => r.Id == selectedRoom.Id);
-                _roomService.Save(all);
-                RefreshAll();
-            }
+            ExecuteDeleteRoom();
         }
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
             RefreshAll();
+        }
+
+        private void RoomsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private void BtnOpenClientView_Click(object sender, RoutedEventArgs e)

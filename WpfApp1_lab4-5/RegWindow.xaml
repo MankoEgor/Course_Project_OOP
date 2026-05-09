@@ -4,7 +4,8 @@
         Title="{DynamicResource AppTitle}"
         Height="500" Width="820"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Background="{DynamicResource BrushWindowBackground}">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -12,82 +13,80 @@
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ФОТО -->
-        <Border Grid.Column="0">
-            <Image Source="/Assets/hotel.jpg"
-                   Stretch="UniformToFill"/>
+        <Border Grid.Column="0" ClipToBounds="True">
+            <Image Source="/Assets/hotel.jpg" Stretch="UniformToFill"/>
         </Border>
 
-        <!-- ФОРМА -->
-        <Grid Grid.Column="1"
-              Background="{DynamicResource BrushPanelBackground}"
-              Margin="40,30">
+        <Border Grid.Column="1"
+                Background="{DynamicResource BrushPanelBackground}"
+                Padding="40,30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <TextBlock Text="{DynamicResource HaveAccount}"
+                               Foreground="{DynamicResource BrushTextSecondary}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,8,0"/>
 
-            <!-- Верх -->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
+                    <Button Content="{DynamicResource LoginButton}"
+                            Height="30"
+                            Padding="14,0"
+                            Click="BtnSwitch_Click"/>
+                </StackPanel>
 
-                <TextBlock Text="{DynamicResource HaveAccount}"
-                           Foreground="{DynamicResource BrushTextSecondary}"
-                           VerticalAlignment="Center"
-                           Margin="0,0,8,0"/>
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
 
-                <Button Content="{DynamicResource LoginButton}"
-                        Height="28"
-                        Padding="14,0"
-                        Click="BtnSwitch_Click"/>
-            </StackPanel>
+                    <TextBlock Text="{DynamicResource RegisterTitleBig}"
+                               Foreground="{DynamicResource BrushTextPrimary}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Margin="0,0,0,24"/>
 
-            <!-- Центр -->
-            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource FullName}"
+                               Foreground="{DynamicResource BrushTextPrimary}"
+                               Margin="0,0,0,5"/>
 
-                <TextBlock Text="{DynamicResource RegisterTitleBig}"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Margin="0,0,0,24"/>
+                    <TextBox x:Name="TxtFullName"
+                             Height="42"
+                             Margin="0,0,0,12"
+                             Padding="12,0"
+                             VerticalContentAlignment="Center"/>
 
-                <!-- Full Name -->
-                <TextBlock Text="{DynamicResource FullName}"
-                           Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Email}"
+                               Foreground="{DynamicResource BrushTextPrimary}"
+                               Margin="0,0,0,5"/>
 
-                <TextBox x:Name="TxtFullName"
-                         Height="40"
-                         Margin="0,0,0,12"
-                         Padding="10"/>
+                    <TextBox x:Name="TxtLogin"
+                             Height="42"
+                             Margin="0,0,0,12"
+                             Padding="12,0"
+                             VerticalContentAlignment="Center"/>
 
-                <!-- Email -->
-                <TextBlock Text="{DynamicResource Email}"
-                           Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Password}"
+                               Foreground="{DynamicResource BrushTextPrimary}"
+                               Margin="0,0,0,5"/>
 
-                <TextBox x:Name="TxtLogin"
-                         Height="40"
-                         Margin="0,0,0,12"
-                         Padding="10"/>
+                    <PasswordBox x:Name="TxtPassword"
+                                 Height="42"
+                                 Margin="0,0,0,12"
+                                 Padding="12,0"/>
 
-                <!-- Password -->
-                <TextBlock Text="{DynamicResource Password}"
-                           Margin="0,0,0,5"/>
+                    <TextBlock x:Name="TxtError"
+                               Foreground="{DynamicResource BrushDanger}"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,10"/>
 
-                <PasswordBox x:Name="TxtPassword"
-                             Height="40"
-                             Margin="0,0,0,10"
-                             Padding="10"/>
-
-                <!-- Error -->
-                <TextBlock x:Name="TxtError"
-                           Foreground="{DynamicResource BrushDanger}"
-                           Margin="0,0,0,10"/>
-
-                <!-- Button -->
-                <Button Content="{DynamicResource RegisterButton}"
-                        Height="42"
-                        Click="BtnAction_Click"/>
-            </StackPanel>
-        </Grid>
+                    <Button Content="{DynamicResource RegisterButton}"
+                            Height="44"
+                            Click="BtnAction_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

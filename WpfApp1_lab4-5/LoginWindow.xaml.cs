@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Input;
 using WpfApp1_lab4_5.Models;
 
 namespace WpfApp1_lab4_5
@@ -34,7 +33,7 @@ namespace WpfApp1_lab4_5
             return TryFindResource(key)?.ToString() ?? fallback;
         }
 
-        private void SwitchToRegister(object sender, MouseButtonEventArgs e)
+        private void SwitchToRegister(object sender, RoutedEventArgs e)
         {
             new RegWindow().Show();
             Close();

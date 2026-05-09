@@ -5,7 +5,7 @@
         Height="620" Width="600"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#FFFCFC">
+        Background="{DynamicResource BrushWindowBackground}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,10 +14,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#6F4E37" Padding="24,16">
+        <Border Grid.Row="0"
+                Background="{DynamicResource BrushHeaderBackground}"
+                Padding="24,16">
             <TextBlock x:Name="TxtWindowTitle"
                        Text="{DynamicResource AddRoomWindow}"
-                       Foreground="#FFFCFC"
+                       Foreground="{DynamicResource BrushTextOnDark}"
                        FontSize="18"
                        FontWeight="Bold"/>
         </Border>
@@ -26,59 +28,43 @@
             <StackPanel Margin="24,20,24,20">
 
                 <TextBlock Text="{DynamicResource RoomShortNameLabel}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <Border BorderBrush="#e0e0e0"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Height="40"
-                        Margin="0,0,0,14">
-                    <TextBox x:Name="TxtShortName"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="12,0"
-                             VerticalContentAlignment="Center"
-                             FontSize="14"/>
-                </Border>
+                <TextBox x:Name="TxtShortName"
+                         Height="40"
+                         Margin="0,0,0,14"
+                         Padding="12,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
 
                 <TextBlock Text="{DynamicResource RoomFullName}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <Border BorderBrush="#e0e0e0"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Height="40"
-                        Margin="0,0,0,14">
-                    <TextBox x:Name="TxtFullName"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="12,0"
-                             VerticalContentAlignment="Center"
-                             FontSize="14"/>
-                </Border>
+                <TextBox x:Name="TxtFullName"
+                         Height="40"
+                         Margin="0,0,0,14"
+                         Padding="12,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
 
                 <TextBlock Text="{DynamicResource RoomDescription}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <Border BorderBrush="#e0e0e0"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Margin="0,0,0,14">
-                    <TextBox x:Name="TxtDescription"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="12,8"
-                             FontSize="14"
-                             Height="80"
-                             TextWrapping="Wrap"
-                             AcceptsReturn="True"
-                             VerticalScrollBarVisibility="Auto"/>
-                </Border>
+                <TextBox x:Name="TxtDescription"
+                         Padding="12,8"
+                         FontSize="14"
+                         Height="80"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         VerticalScrollBarVisibility="Auto"
+                         Margin="0,0,0,14"/>
 
                 <TextBlock Text="{DynamicResource RoomCategory}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <ComboBox x:Name="CmbCategory" Margin="0,0,0,14" Height="40">
+                <ComboBox x:Name="CmbCategory"
+                          Margin="0,0,0,14"
+                          Height="40">
                     <ComboBoxItem Content="{DynamicResource CategorySingle}"/>
                     <ComboBoxItem Content="{DynamicResource CategoryDouble}"/>
                     <ComboBoxItem Content="{DynamicResource CategoryLux}"/>
@@ -97,116 +83,80 @@
 
                     <StackPanel Grid.Column="0" Grid.Row="0">
                         <TextBlock Text="{DynamicResource RoomPriceNight}"
-                                   Foreground="#1A1A1A"
+                                   Foreground="{DynamicResource BrushTextPrimary}"
                                    Margin="0,0,0,6"/>
-                        <Border BorderBrush="#e0e0e0"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Height="40"
-                                Margin="0,0,0,14">
-                            <TextBox x:Name="TxtPrice"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     Padding="12,0"
-                                     VerticalContentAlignment="Center"
-                                     FontSize="14"/>
-                        </Border>
+                        <TextBox x:Name="TxtPrice"
+                                 Height="40"
+                                 Margin="0,0,0,14"
+                                 Padding="12,0"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Grid.Row="0">
                         <TextBlock Text="{DynamicResource RoomFloor}"
-                                   Foreground="#1A1A1A"
+                                   Foreground="{DynamicResource BrushTextPrimary}"
                                    Margin="0,0,0,6"/>
-                        <Border BorderBrush="#e0e0e0"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Height="40"
-                                Margin="0,0,0,14">
-                            <TextBox x:Name="TxtFloor"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     Padding="12,0"
-                                     VerticalContentAlignment="Center"
-                                     FontSize="14"/>
-                        </Border>
+                        <TextBox x:Name="TxtFloor"
+                                 Height="40"
+                                 Margin="0,0,0,14"
+                                 Padding="12,0"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="0" Grid.Row="1">
                         <TextBlock Text="{DynamicResource RoomArea}"
-                                   Foreground="#1A1A1A"
+                                   Foreground="{DynamicResource BrushTextPrimary}"
                                    Margin="0,0,0,6"/>
-                        <Border BorderBrush="#e0e0e0"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Height="40">
-                            <TextBox x:Name="TxtArea"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     Padding="12,0"
-                                     VerticalContentAlignment="Center"
-                                     FontSize="14"/>
-                        </Border>
+                        <TextBox x:Name="TxtArea"
+                                 Height="40"
+                                 Padding="12,0"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Grid.Row="1">
                         <TextBlock Text="{DynamicResource RoomCapacityMax}"
-                                   Foreground="#1A1A1A"
+                                   Foreground="{DynamicResource BrushTextPrimary}"
                                    Margin="0,0,0,6"/>
-                        <Border BorderBrush="#e0e0e0"
-                                BorderThickness="1"
-                                CornerRadius="6"
-                                Height="40">
-                            <TextBox x:Name="TxtCapacity"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     Padding="12,0"
-                                     VerticalContentAlignment="Center"
-                                     FontSize="14"/>
-                        </Border>
+                        <TextBox x:Name="TxtCapacity"
+                                 Height="40"
+                                 Padding="12,0"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="14"/>
                     </StackPanel>
                 </Grid>
 
                 <TextBlock Text="{DynamicResource RoomRatingRange}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <Border BorderBrush="#e0e0e0"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Height="40"
-                        Margin="0,0,0,14">
-                    <TextBox x:Name="TxtRating"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="12,0"
-                             VerticalContentAlignment="Center"
-                             FontSize="14"/>
-                </Border>
+                <TextBox x:Name="TxtRating"
+                         Height="40"
+                         Margin="0,0,0,14"
+                         Padding="12,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
 
                 <TextBlock Text="{DynamicResource RoomAmenitiesComma}"
-                           Foreground="#1A1A1A"
+                           Foreground="{DynamicResource BrushTextPrimary}"
                            Margin="0,0,0,6"/>
-                <Border BorderBrush="#e0e0e0"
-                        BorderThickness="1"
-                        CornerRadius="6"
-                        Height="40"
-                        Margin="0,0,0,14">
-                    <TextBox x:Name="TxtAmenities"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             Padding="12,0"
-                             VerticalContentAlignment="Center"
-                             FontSize="14"/>
-                </Border>
+                <TextBox x:Name="TxtAmenities"
+                         Height="40"
+                         Margin="0,0,0,14"
+                         Padding="12,0"
+                         VerticalContentAlignment="Center"
+                         FontSize="14"/>
 
                 <CheckBox x:Name="ChkAvailable"
                           Content="{DynamicResource RoomAvailableCheckbox}"
                           IsChecked="True"
-                          Foreground="#1A1A1A"
+                          Foreground="{DynamicResource BrushTextPrimary}"
                           FontSize="14"
                           Margin="0,0,0,8"/>
 
                 <TextBlock x:Name="TxtError"
-                           Foreground="Red"
+                           Foreground="{DynamicResource BrushDanger}"
                            TextWrapping="Wrap"
                            FontSize="13"/>
 
@@ -214,61 +164,30 @@
         </ScrollViewer>
 
         <Border Grid.Row="2"
-                Background="White"
-                BorderBrush="#e0e0e0"
+                Background="{DynamicResource BrushPanelBackground}"
+                BorderBrush="{DynamicResource BrushBorder}"
                 BorderThickness="0,1,0,0"
                 Padding="24,14">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
                 <Button Content="{DynamicResource Cancel}"
                         Height="38"
                         Width="100"
                         Margin="0,0,10,0"
-                        Background="#F5F5F0"
-                        Foreground="#1A1A1A"
-                        BorderThickness="0"
-                        Click="BtnCancel_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        Background="{DynamicResource BrushBadgeBackground}"
+                        Foreground="{DynamicResource BrushTextPrimary}"
+                        BorderBrush="{DynamicResource BrushBorder}"
+                        BorderThickness="1"
+                        Click="BtnCancel_Click"/>
 
                 <Button x:Name="BtnSave"
                         Content="{DynamicResource Save}"
                         Height="38"
                         Width="120"
-                        Background="#6F4E37"
-                        Foreground="#FFFCFC"
-                        BorderThickness="0"
-                        Click="BtnSave_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#5a3e2b"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </Button.Style>
-                </Button>
+                        Background="{DynamicResource BrushPrimary}"
+                        Foreground="{DynamicResource BrushTextOnDark}"
+                        Click="BtnSave_Click"/>
+
             </StackPanel>
         </Border>
     </Grid>

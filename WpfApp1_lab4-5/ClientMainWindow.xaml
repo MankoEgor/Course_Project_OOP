@@ -4,11 +4,13 @@
         Title="{DynamicResource ClientWindowTitle}"
         MinWidth="900" MinHeight="600"
         Width="1200" Height="700"
-        Background="#FFFCFC">
+        Background="{DynamicResource BrushWindowBackground}">
 
     <DockPanel>
 
-        <Border DockPanel.Dock="Top" Background="#6F4E37" Padding="20,12">
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource BrushHeaderBackground}"
+                Padding="20,12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -17,64 +19,55 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0"
-               Text="{DynamicResource ClientWindowTitle}"
-               Foreground="#FFFCFC"
-               FontSize="20"
-               FontWeight="Bold"
-               VerticalAlignment="Center"/>
+                           Text="{DynamicResource ClientWindowTitle}"
+                           Foreground="{DynamicResource BrushTextOnDark}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           VerticalAlignment="Center"/>
 
                 <StackPanel Grid.Column="1"
-                Orientation="Horizontal"
-                Margin="0,0,12,0"
-                VerticalAlignment="Center">
+                            Orientation="Horizontal"
+                            Margin="0,0,12,0"
+                            VerticalAlignment="Center">
                     <Button Content="{DynamicResource LanguageRu}"
-                Width="48"
-                Height="32"
-                Margin="0,0,8,0"
-                Background="Transparent"
-                Foreground="#FFFCFC"
-                BorderBrush="#FFFCFC"
-                BorderThickness="1"
-                Click="BtnRu_Click"/>
+                            Width="48"
+                            Height="32"
+                            Margin="0,0,8,0"
+                            Click="BtnRu_Click"/>
 
                     <Button Content="{DynamicResource LanguageEn}"
-                Width="48"
-                Height="32"
-                Background="Transparent"
-                Foreground="#FFFCFC"
-                BorderBrush="#FFFCFC"
-                BorderThickness="1"
-                Click="BtnEn_Click"/>
+                            Width="48"
+                            Height="32"
+                            Click="BtnEn_Click"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                     <Button x:Name="BtnLogin"
-                Content="{DynamicResource Login}"
-                Width="80" Height="32" Margin="0,0,8,0"
-                Background="Transparent" Foreground="#FFFCFC"
-                BorderBrush="#FFFCFC" BorderThickness="1"
-                Click="BtnLogin_Click"/>
+                            Content="{DynamicResource Login}"
+                            Width="80"
+                            Height="32"
+                            Margin="0,0,8,0"
+                            Click="BtnLogin_Click"/>
 
                     <Button x:Name="BtnRegister"
-                Content="{DynamicResource Register}"
-                Width="110" Height="32"
-                Background="#B8860B" Foreground="#FFFCFC"
-                BorderThickness="0"
-                Click="BtnRegister_Click"/>
+                            Content="{DynamicResource Register}"
+                            Width="110"
+                            Height="32"
+                            Margin="0,0,8,0"
+                            Click="BtnRegister_Click"/>
 
                     <TextBlock x:Name="TxtUserName"
-                   Foreground="#FFFCFC"
-                   VerticalAlignment="Center"
-                   Margin="0,0,12,0"
-                   Visibility="Collapsed"/>
+                               Foreground="{DynamicResource BrushTextOnDark}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,12,0"
+                               Visibility="Collapsed"/>
 
                     <Button x:Name="BtnLogout"
-                Content="{DynamicResource Logout}"
-                Width="80" Height="32"
-                Background="Transparent" Foreground="#FFFCFC"
-                BorderBrush="#FFFCFC" BorderThickness="1"
-                Visibility="Collapsed"
-                Click="BtnLogout_Click"/>
+                            Content="{DynamicResource Logout}"
+                            Width="80"
+                            Height="32"
+                            Visibility="Collapsed"
+                            Click="BtnLogout_Click"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -86,42 +79,32 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0"
-                    Background="#F5F5F0"
-                    BorderBrush="#e0e0e0"
+                    Background="{DynamicResource BrushPanelBackground}"
+                    BorderBrush="{DynamicResource BrushBorder}"
                     BorderThickness="0,0,1,0"
                     Padding="16">
                 <StackPanel>
                     <TextBlock Text="{DynamicResource Filters}"
                                FontSize="16"
                                FontWeight="Bold"
-                               Foreground="#1A1A1A"
+                               Foreground="{DynamicResource BrushTextPrimary}"
                                Margin="0,0,0,16"/>
 
                     <TextBlock Text="{DynamicResource RoomCategory}"
-                               Foreground="#1A1A1A"
+                               Foreground="{DynamicResource BrushTextPrimary}"
                                Margin="0,0,0,6"/>
 
                     <ComboBox x:Name="FilterCategory"
-                              Margin="0,0,0,16"
-                              SelectionChanged="Filter_Changed">
-                        <ComboBoxItem 
-                            Content="{DynamicResource AllCategories}"
-                            Foreground="{DynamicResource BrushLogText}"
-                            IsSelected="True"/>
-                        <ComboBoxItem 
-                            Content="{DynamicResource CategorySingle}"
-                            Foreground="{DynamicResource BrushLogText}"/>
-                            
-                        <ComboBoxItem 
-                            Content="{DynamicResource CategoryDouble}"
-                            Foreground="{DynamicResource BrushLogText}"/>
-                        <ComboBoxItem 
-                            Content="{DynamicResource CategoryLux}"
-                            Foreground="{DynamicResource BrushLogText}"/>
+                        Margin="0,0,0,16"
+                        SelectionChanged="Filter_Changed">
+                        <ComboBoxItem Content="{DynamicResource AllCategories}" IsSelected="True"/>
+                        <ComboBoxItem Content="{DynamicResource CategorySingle}"/>
+                        <ComboBoxItem Content="{DynamicResource CategoryDouble}"/>
+                        <ComboBoxItem Content="{DynamicResource CategoryLux}"/>
                     </ComboBox>
 
                     <TextBlock Text="{DynamicResource PriceUpTo}"
-                               Foreground="#1A1A1A"
+                               Foreground="{DynamicResource BrushTextPrimary}"
                                Margin="0,0,0,6"/>
 
                     <Slider x:Name="FilterPrice"
@@ -134,74 +117,48 @@
                             ValueChanged="Filter_Changed"/>
 
                     <TextBlock x:Name="TxtPriceFilterValue"
-                               Foreground="{DynamicResource BrushLogText}"
+                               Foreground="{DynamicResource BrushPrimary}"
                                FontWeight="Bold"
                                Margin="0,0,0,16"/>
 
                     <CheckBox x:Name="FilterAvailable"
                               Content="{DynamicResource OnlyAvailable}"
-                              Foreground="{DynamicResource BrushLogText}"
+                              Foreground="{DynamicResource BrushTextPrimary}"
                               Margin="0,0,0,20"
                               Checked="Filter_Changed"
                               Unchecked="Filter_Changed"/>
 
                     <Button Content="{DynamicResource ResetFilters}"
                             Height="36"
-                            Background="#4A5D4E"
-                            Foreground="#FFFCFC"
-                            BorderThickness="0"
-                            Click="BtnResetFilters_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="{TemplateBinding Background}"
-                                                    CornerRadius="6">
-                                                <ContentPresenter HorizontalAlignment="Center"
-                                                                  VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                            Click="BtnResetFilters_Click"/>
                 </StackPanel>
             </Border>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1"
+                  Background="{DynamicResource BrushWindowBackground}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0"
-                        Background="White"
+                        Background="{DynamicResource BrushPanelBackground}"
                         Padding="16,10"
-                        BorderBrush="#e0e0e0"
+                        BorderBrush="{DynamicResource BrushBorder}"
                         BorderThickness="0,0,0,1">
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
                         <TextBox x:Name="SearchBox"
-                                 Grid.Column="0"
                                  Height="36"
                                  Padding="12,0"
                                  FontSize="14"
                                  VerticalContentAlignment="Center"
-                                 BorderBrush="#e0e0e0"
-                                 BorderThickness="1"
                                  TextChanged="SearchBox_TextChanged"/>
 
                         <TextBlock Text="{DynamicResource SearchRoomPlaceholder}"
                                    IsHitTestVisible="False"
                                    VerticalAlignment="Center"
                                    Margin="24,0,0,0"
-                                   Foreground="#aaaaaa"
+                                   Foreground="{DynamicResource BrushTextMuted}"
                                    FontSize="14">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -229,13 +186,12 @@
                             <DataTemplate>
                                 <Border Width="260"
                                         Margin="8"
-                                        Background="White"
-                                        BorderBrush="#e0e0e0"
+                                        Background="{DynamicResource BrushCardBackground}"
+                                        BorderBrush="{DynamicResource BrushBorder}"
                                         BorderThickness="1"
                                         CornerRadius="10">
                                     <StackPanel>
-
-                                        <Border Background="#F5F5F0"
+                                        <Border Background="{DynamicResource BrushBadgeBackground}"
                                                 Height="160"
                                                 CornerRadius="10,10,0,0">
                                             <StackPanel VerticalAlignment="Center"
@@ -247,25 +203,24 @@
                                         </Border>
 
                                         <StackPanel Margin="14,12,14,14">
-
-                                            <Border Background="#F5F5F0"
+                                            <Border Background="{DynamicResource BrushBadgeBackground}"
                                                     CornerRadius="4"
                                                     Padding="6,2"
                                                     HorizontalAlignment="Left"
                                                     Margin="0,0,0,6">
                                                 <TextBlock Text="{Binding Category}"
                                                            FontSize="11"
-                                                           Foreground="#4A5D4E"/>
+                                                           Foreground="{DynamicResource BrushSuccess}"/>
                                             </Border>
 
                                             <TextBlock Text="{Binding ShortName}"
                                                        FontSize="16"
                                                        FontWeight="Bold"
-                                                       Foreground="#1A1A1A"
+                                                       Foreground="{DynamicResource BrushTextPrimary}"
                                                        Margin="0,0,0,4"/>
 
                                             <TextBlock FontSize="12"
-                                                       Foreground="#888"
+                                                       Foreground="{DynamicResource BrushTextSecondary}"
                                                        Margin="0,0,0,6">
                                                 <Run Text="{Binding Floor}"/>
                                                 <Run Text=" "/>
@@ -276,7 +231,7 @@
                                             </TextBlock>
 
                                             <TextBlock FontSize="13"
-                                                       Foreground="#B8860B"
+                                                       Foreground="{DynamicResource BrushAccent}"
                                                        Margin="0,0,0,8">
                                                 <Run Text="★"/>
                                                 <Run Text="{Binding Rating}"/>
@@ -284,7 +239,7 @@
 
                                             <TextBlock FontSize="15"
                                                        FontWeight="Bold"
-                                                       Foreground="#6F4E37"
+                                                       Foreground="{DynamicResource BrushPrimary}"
                                                        Margin="0,0,0,10">
                                                 <Run Text="{Binding PricePerNight, StringFormat='{}{0:N0}'}"/>
                                                 <Run Text=" "/>
@@ -298,11 +253,11 @@
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsAvailable}" Value="True">
                                                                 <Setter Property="Text" Value="{DynamicResource AvailableDot}"/>
-                                                                <Setter Property="Foreground" Value="#4A5D4E"/>
+                                                                <Setter Property="Foreground" Value="{DynamicResource BrushSuccess}"/>
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding IsAvailable}" Value="False">
                                                                 <Setter Property="Text" Value="{DynamicResource BusyDot}"/>
-                                                                <Setter Property="Foreground" Value="#cc4444"/>
+                                                                <Setter Property="Foreground" Value="{DynamicResource BrushDanger}"/>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -311,33 +266,8 @@
 
                                             <Button Content="{DynamicResource DetailsButton}"
                                                     Height="34"
-                                                    Background="#6F4E37"
-                                                    Foreground="#FFFCFC"
-                                                    BorderThickness="0"
                                                     Tag="{Binding Id}"
-                                                    Click="BtnDetails_Click">
-                                                <Button.Style>
-                                                    <Style TargetType="Button">
-                                                        <Setter Property="Template">
-                                                            <Setter.Value>
-                                                                <ControlTemplate TargetType="Button">
-                                                                    <Border Background="{TemplateBinding Background}"
-                                                                            CornerRadius="6">
-                                                                        <ContentPresenter HorizontalAlignment="Center"
-                                                                                          VerticalAlignment="Center"/>
-                                                                    </Border>
-                                                                    <ControlTemplate.Triggers>
-                                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                                            <Setter Property="Background" Value="#5a3e2b"/>
-                                                                        </Trigger>
-                                                                    </ControlTemplate.Triggers>
-                                                                </ControlTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
-
+                                                    Click="BtnDetails_Click"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>

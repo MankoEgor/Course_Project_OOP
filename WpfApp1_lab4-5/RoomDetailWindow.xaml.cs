@@ -28,26 +28,44 @@ namespace WpfApp1_lab4_5
         private void FillData()
         {
             Title = _room.ShortName;
+
             TxtCategory.Text = _room.Category;
             TxtFullName.Text = _room.FullName;
             TxtRating.Text = _room.Rating.ToString("F1");
-            TxtFloor.Text = string.Format(GetText("FloorFormat", "{0} этаж"), _room.Floor);
-            TxtArea.Text = string.Format(GetText("AreaFormat", "{0} м²"), _room.Area);
-            TxtCapacity.Text = string.Format(GetText("CapacityFormat", "{0} чел."), _room.Capacity);
+
+            TxtFloor.Text = string.Format(
+                GetText("FloorFormat", "{0} floor"),
+                _room.Floor);
+
+            TxtArea.Text = string.Format(
+                GetText("AreaFormat", "{0} m²"),
+                _room.Area);
+
+            TxtCapacity.Text = string.Format(
+                GetText("CapacityFormat", "{0} guests"),
+                _room.Capacity);
+
             TxtDescription.Text = _room.Description;
             TxtPrice.Text = _room.PricePerNight.ToString("N0");
+
+            // THEME BRUSHES
+            var successBrush = (Brush)FindResource("BrushSuccess");
+            var dangerBrush = (Brush)FindResource("BrushDanger");
+
+            var badgeBrush = (Brush)FindResource("BrushBadgeBackground");
+            var textBrush = (Brush)FindResource("BrushTextPrimary");
 
             if (_room.IsAvailable)
             {
                 TxtAvailable.Text = GetText("AvailableStatus", "● Available");
-                TxtAvailable.Foreground = new SolidColorBrush(Color.FromRgb(74, 93, 78));
-                BadgeAvailable.Background = new SolidColorBrush(Color.FromRgb(234, 243, 234));
+                TxtAvailable.Foreground = successBrush;
+                BadgeAvailable.Background = badgeBrush;
             }
             else
             {
                 TxtAvailable.Text = GetText("BusyStatus", "● Occupied");
-                TxtAvailable.Foreground = new SolidColorBrush(Color.FromRgb(204, 68, 68));
-                BadgeAvailable.Background = new SolidColorBrush(Color.FromRgb(252, 235, 235));
+                TxtAvailable.Foreground = dangerBrush;
+                BadgeAvailable.Background = badgeBrush;
             }
 
             AmenitiesPanel.Children.Clear();
@@ -56,17 +74,21 @@ namespace WpfApp1_lab4_5
             {
                 var badge = new System.Windows.Controls.Border
                 {
-                    Background = new SolidColorBrush(Color.FromRgb(245, 245, 240)),
+                    Background = badgeBrush,
+                    BorderBrush = (Brush)FindResource("BrushBorder"),
+                    BorderThickness = new Thickness(1),
                     CornerRadius = new CornerRadius(6),
                     Padding = new Thickness(10, 4, 10, 4),
                     Margin = new Thickness(0, 0, 8, 8),
+
                     Child = new System.Windows.Controls.TextBlock
                     {
                         Text = amenity,
                         FontSize = 13,
-                        Foreground = new SolidColorBrush(Color.FromRgb(26, 26, 26))
+                        Foreground = textBrush
                     }
                 };
+
                 AmenitiesPanel.Children.Add(badge);
             }
         }

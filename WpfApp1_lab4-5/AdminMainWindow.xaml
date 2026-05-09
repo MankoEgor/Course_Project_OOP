@@ -11,16 +11,17 @@
         MinHeight="620"
         MinWidth="1020"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource BrushBackground}">
+        Background="{DynamicResource BrushWindowBackground}">
 
     <Window.Resources>
+
         <Style x:Key="SidebarButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="46"/>
             <Setter Property="Margin" Value="0,0,0,10"/>
-            <Setter Property="Padding" Value="16,0,16,0"/>
+            <Setter Property="Padding" Value="16,0"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#F8F3ED"/>
+            <Setter Property="Foreground" Value="{DynamicResource BrushTextOnDark}"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -29,42 +30,73 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
                                 CornerRadius="12">
                             <ContentPresenter VerticalAlignment="Center"
-                                              HorizontalAlignment="Left"/>
+                                              HorizontalAlignment="Left"
+                                              Margin="{TemplateBinding Padding}"
+                                              TextElement.Foreground="{TemplateBinding Foreground}"/>
                         </Border>
+
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsEnabled" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Root"
+                                        Property="Background"
+                                        Value="{DynamicResource BrushAccent}"/>
+                            </MultiTrigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource BrushAccent}"/>
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
-        <Style x:Key="ActionButtonStyle" TargetType="Button" BasedOn="{StaticResource RoundedButtonStyle}">
+        <Style x:Key="ActionButtonStyle"
+       TargetType="Button"
+       BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Height" Value="36"/>
-            <Setter Property="MinWidth" Value="118"/>
+            <Setter Property="MinWidth" Value="100"/>
             <Setter Property="Margin" Value="0,0,10,0"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="18"/>
+            <Setter Property="Foreground" Value="{DynamicResource BrushTextOnDark}"/>
         </Style>
 
-        <Style x:Key="MetricCardStyle" TargetType="Border" BasedOn="{StaticResource AnimatedCardStyle}">
-            <Setter Property="Background" Value="{DynamicResource BrushPanel}"/>
+        <Style x:Key="MetricCardStyle"
+               TargetType="Border"
+               BasedOn="{StaticResource FadeInCardStyle}">
+            <Setter Property="Background" Value="{DynamicResource BrushCardBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="16"/>
             <Setter Property="Padding" Value="18"/>
             <Setter Property="Margin" Value="0,0,16,16"/>
         </Style>
 
-        <Style x:Key="SmallLangButtonStyle" TargetType="Button" BasedOn="{StaticResource RoundedButtonStyle}">
-            <Setter Property="Width" Value="48"/>
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="MinWidth" Value="48"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
+        <Style x:Key="SmallLangButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Width" Value="58"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="MinWidth" Value="58"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
             <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="{DynamicResource BrushPrimary}"/>
+            <Setter Property="Foreground" Value="{DynamicResource BrushTextOnDark}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BrushPrimary}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
+
     </Window.Resources>
 
     <Grid>
@@ -73,8 +105,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sidebar -->
-        <Border Grid.Column="0" Background="{DynamicResource BrushPrimary}">
+        <Border Grid.Column="0" Background="{DynamicResource BrushSidebarBackground}">
             <Grid Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -86,11 +117,13 @@
                     <TextBlock Text="{DynamicResource AppTitle}"
                                FontSize="26"
                                FontWeight="Bold"
-                               Foreground="White"/>
+                               Foreground="{DynamicResource BrushTextOnDark}"/>
+
                     <TextBlock x:Name="TxtAdminName"
                                Text="Администратор"
                                FontSize="14"
-                               Foreground="#EADFD3"
+                               Foreground="{DynamicResource BrushTextOnDark}"
+                               Opacity="0.8"
                                Margin="0,6,0,0"/>
                 </StackPanel>
 
@@ -133,16 +166,16 @@
             </Grid>
         </Border>
 
-        <!-- Main content -->
         <Grid Grid.Column="1" Margin="22">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Header -->
             <Border Grid.Row="0"
-                    Background="{DynamicResource BrushPanel}"
+                    Background="{DynamicResource BrushPanelBackground}"
+                    BorderBrush="{DynamicResource BrushBorder}"
+                    BorderThickness="1"
                     CornerRadius="18"
                     Padding="22"
                     Margin="0,0,0,18">
@@ -155,14 +188,14 @@
                     <StackPanel>
                         <TextBlock x:Name="TxtPageTitle"
                                    Text="{DynamicResource Dashboard}"
-                                   
                                    FontSize="28"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource BrushLogText}"/>
+                                   Foreground="{DynamicResource BrushTextPrimary}"/>
+
                         <TextBlock x:Name="TxtPageSubtitle"
                                    Text="{DynamicResource PageSubtitleDashboard}"
                                    FontSize="14"
-                                   Foreground="{DynamicResource BrushSubText}"
+                                   Foreground="{DynamicResource BrushTextSecondary}"
                                    Margin="0,4,0,0"/>
                     </StackPanel>
 
@@ -178,7 +211,9 @@
                                 Margin="0,0,12,0"
                                 Click="BtnEn_Click"/>
 
-                        <Border Background="{DynamicResource BrushBackground}"
+                        <Border Background="{DynamicResource BrushBadgeBackground}"
+                                BorderBrush="{DynamicResource BrushBorder}"
+                                BorderThickness="1"
                                 CornerRadius="12"
                                 Padding="14,8"
                                 VerticalAlignment="Center">
@@ -191,27 +226,29 @@
                 </Grid>
             </Border>
 
-            <!-- Workspace -->
             <Grid Grid.Row="1">
 
-                <!-- Dashboard -->
                 <ScrollViewer x:Name="DashboardView" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <WrapPanel Margin="0,0,0,4">
                             <Border Style="{StaticResource MetricCardStyle}" Width="220">
                                 <StackPanel>
-                                    <TextBlock Text="{DynamicResource TotalRooms}" FontSize="14" Foreground="{DynamicResource BrushSubText}"/>
+                                    <TextBlock Text="{DynamicResource TotalRooms}"
+                                               FontSize="14"
+                                               Foreground="{DynamicResource BrushTextSecondary}"/>
                                     <TextBlock x:Name="TxtTotalRooms"
                                                FontSize="32"
                                                FontWeight="Bold"
-                                               Foreground="{DynamicResource BrushLogText}"
+                                               Foreground="{DynamicResource BrushTextPrimary}"
                                                Margin="0,8,0,0"/>
                                 </StackPanel>
                             </Border>
 
                             <Border Style="{StaticResource MetricCardStyle}" Width="220">
                                 <StackPanel>
-                                    <TextBlock Text="{DynamicResource AvailableRooms}" FontSize="14" Foreground="{DynamicResource BrushSubText}"/>
+                                    <TextBlock Text="{DynamicResource AvailableRooms}"
+                                               FontSize="14"
+                                               Foreground="{DynamicResource BrushTextSecondary}"/>
                                     <TextBlock x:Name="TxtAvailableRooms"
                                                FontSize="32"
                                                FontWeight="Bold"
@@ -222,7 +259,9 @@
 
                             <Border Style="{StaticResource MetricCardStyle}" Width="220">
                                 <StackPanel>
-                                    <TextBlock Text="{DynamicResource BusyRooms}" FontSize="14" Foreground="{DynamicResource BrushSubText}"/>
+                                    <TextBlock Text="{DynamicResource BusyRooms}"
+                                               FontSize="14"
+                                               Foreground="{DynamicResource BrushTextSecondary}"/>
                                     <TextBlock x:Name="TxtBusyRooms"
                                                FontSize="32"
                                                FontWeight="Bold"
@@ -233,7 +272,9 @@
 
                             <Border Style="{StaticResource MetricCardStyle}" Width="220">
                                 <StackPanel>
-                                    <TextBlock Text="{DynamicResource AveragePrice}" FontSize="14" Foreground="{DynamicResource BrushSubText}"/>
+                                    <TextBlock Text="{DynamicResource AveragePrice}"
+                                               FontSize="14"
+                                               Foreground="{DynamicResource BrushTextSecondary}"/>
                                     <TextBlock x:Name="TxtAveragePrice"
                                                FontSize="32"
                                                FontWeight="Bold"
@@ -243,21 +284,23 @@
                             </Border>
                         </WrapPanel>
 
-                        <Border Background="{DynamicResource BrushPanel}"
+                        <Border Background="{DynamicResource BrushPanelBackground}"
+                                BorderBrush="{DynamicResource BrushBorder}"
+                                BorderThickness="1"
                                 CornerRadius="16"
                                 Padding="22">
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource QuickActions}"
                                            FontSize="20"
                                            FontWeight="Bold"
-                                           Foreground="{DynamicResource BrushLogText}"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
                                            Margin="0,0,0,14"/>
 
                                 <WrapPanel>
                                     <Button Content="{DynamicResource AddRoom}"
                                             Background="{DynamicResource BrushSuccess}"
                                             Style="{StaticResource ActionButtonStyle}"
-                                             Command="{Binding AddRoomCommand}"/>
+                                            Command="{Binding AddRoomCommand}"/>
 
                                     <Button Content="{DynamicResource OpenRoomsList}"
                                             Background="{DynamicResource BrushPrimary}"
@@ -269,7 +312,6 @@
                     </StackPanel>
                 </ScrollViewer>
 
-                <!-- Rooms -->
                 <Grid x:Name="RoomsView" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -277,7 +319,9 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0"
-                            Background="{DynamicResource BrushPanel}"
+                            Background="{DynamicResource BrushPanelBackground}"
+                            BorderBrush="{DynamicResource BrushBorder}"
+                            BorderThickness="1"
                             CornerRadius="16"
                             Padding="16"
                             Margin="0,0,0,16">
@@ -294,14 +338,13 @@
                                      VerticalContentAlignment="Center"
                                      FontSize="14"
                                      ToolTip="{DynamicResource SearchTooltip}"
-                                     Foreground="{DynamicResource BrushLogText}"
                                      TextChanged="SearchRoomBox_TextChanged"/>
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
                                 <Button Content="{DynamicResource Add}"
                                         Background="{DynamicResource BrushSuccess}"
                                         Style="{StaticResource ActionButtonStyle}"
-                                         Command="{Binding AddRoomCommand}"/>
+                                        Command="{Binding AddRoomCommand}"/>
 
                                 <Button Content="{DynamicResource Edit}"
                                         Background="{DynamicResource BrushPrimary}"
@@ -317,6 +360,31 @@
                                         Background="{DynamicResource BrushAccent}"
                                         Style="{StaticResource ActionButtonStyle}"
                                         Command="{Binding RefreshRoomsCommand}"/>
+
+                                <Button Style="{StaticResource IconButtonStyle}"
+                                    Width="44"
+                                    Height="36"
+                                    MinWidth="44"
+                                    Margin="0,0,10,0"
+                                    ToolTip="Undo"
+                                    Command="{Binding UndoCommand}">
+                                    <Image Source="/Assets/undo_24dp_FFFFFF.png"
+                                       Width="20"
+                                       Height="20"/>
+                                </Button>
+
+                                <!-- Redo -->
+                                <Button Style="{StaticResource IconButtonStyle}"
+                                    Width="44"
+                                    Height="36"
+                                    MinWidth="44"
+                                    Margin="0"
+                                    ToolTip="Redo"
+                                    Command="{Binding RedoCommand}">
+                                    <Image Source="/Assets/redo_24dp_FFFFFF.png"
+                                       Width="20"
+                                       Height="20"/>
+                                </Button>
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -329,11 +397,12 @@
                               SelectionUnit="FullRow"
                               HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal"
-                              RowBackground="{DynamicResource BrushPanel}"
-                              AlternatingRowBackground="{DynamicResource BrushBackground}"
-                              BorderBrush="#DDD"
+                              RowBackground="{DynamicResource BrushPanelBackground}"
+                              AlternatingRowBackground="{DynamicResource BrushWindowBackground}"
+                              BorderBrush="{DynamicResource BrushBorder}"
                               BorderThickness="1"
-                              FontSize="14">
+                              FontSize="14"
+                              SelectionChanged="RoomsGrid_SelectionChanged">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="{DynamicResource Id}" Binding="{Binding Id}" Width="60"/>
                             <DataGridTextColumn Header="{DynamicResource ShortName}" Binding="{Binding ShortName}" Width="170"/>
@@ -349,47 +418,51 @@
                     </DataGrid>
                 </Grid>
 
-                <!-- Users -->
                 <Border x:Name="UsersView"
                         Visibility="Collapsed"
-                        Background="{DynamicResource BrushPanel}"
+                        Background="{DynamicResource BrushPanelBackground}"
+                        BorderBrush="{DynamicResource BrushBorder}"
+                        BorderThickness="1"
                         CornerRadius="16"
                         Padding="24">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource Users}"
                                    FontSize="24"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource BrushLogText}"/>
+                                   Foreground="{DynamicResource BrushTextPrimary}"/>
                         <TextBlock Text="{DynamicResource UsersStub}"
-                                   Foreground="{DynamicResource BrushSubText}"
+                                   Foreground="{DynamicResource BrushTextSecondary}"
                                    Margin="0,12,0,0"
                                    TextWrapping="Wrap"/>
                     </StackPanel>
                 </Border>
 
-                <!-- Bookings -->
                 <Border x:Name="BookingsView"
                         Visibility="Collapsed"
-                        Background="{DynamicResource BrushPanel}"
+                        Background="{DynamicResource BrushPanelBackground}"
+                        BorderBrush="{DynamicResource BrushBorder}"
+                        BorderThickness="1"
                         CornerRadius="16"
                         Padding="24">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource Bookings}"
                                    FontSize="24"
                                    FontWeight="Bold"
-                                   Foreground="{DynamicResource BrushLogText}"/>
+                                   Foreground="{DynamicResource BrushTextPrimary}"/>
                         <TextBlock Text="{DynamicResource BookingsStub}"
-                                   Foreground="{DynamicResource BrushSubText}"
+                                   Foreground="{DynamicResource BrushTextSecondary}"
                                    Margin="0,12,0,0"
                                    TextWrapping="Wrap"/>
                     </StackPanel>
                 </Border>
 
                 <Border x:Name="ProfileView"
-        Visibility="Collapsed"
-        Background="{DynamicResource BrushPanel}"
-        CornerRadius="16"
-        Padding="24">
+                        Visibility="Collapsed"
+                        Background="{DynamicResource BrushPanelBackground}"
+                        BorderBrush="{DynamicResource BrushBorder}"
+                        BorderThickness="1"
+                        CornerRadius="16"
+                        Padding="24">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -398,73 +471,79 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <!-- Левая часть -->
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="{DynamicResource ProfileTitle}"
                                            FontSize="24"
                                            FontWeight="Bold"
-                                           Foreground="{DynamicResource BrushLogText}"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
                                            Margin="0,0,0,20"/>
 
-                                <TextBlock 
-                                    Text="{DynamicResource ProfileName}" 
-                                    Foreground="{DynamicResource BrushLogText}"
-                                    Margin="0,0,0,6"/>
-                                <Border Background="#F8F8F8" CornerRadius="8" Padding="10" Margin="0,0,0,14">
+                                <TextBlock Text="{DynamicResource ProfileName}"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
+                                           Margin="0,0,0,6"/>
+                                <Border Background="{DynamicResource BrushFieldBackground}"
+                                        BorderBrush="{DynamicResource BrushFieldBorder}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="10"
+                                        Margin="0,0,0,14">
                                     <TextBox x:Name="TxtProfileFullName"
-                             BorderThickness="0"
-                             Background="Transparent"/>
+                                             BorderThickness="0"
+                                             Background="Transparent"/>
                                 </Border>
 
-                                <TextBlock 
-                                    Text="{DynamicResource ProfileEmail}" 
-                                    Foreground="{DynamicResource BrushLogText}"
-                                    Margin="0,0,0,6"/>
-                                <Border Background="#F8F8F8" CornerRadius="8" Padding="10" Margin="0,0,0,14">
+                                <TextBlock Text="{DynamicResource ProfileEmail}"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
+                                           Margin="0,0,0,6"/>
+                                <Border Background="{DynamicResource BrushFieldBackground}"
+                                        BorderBrush="{DynamicResource BrushFieldBorder}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="10"
+                                        Margin="0,0,0,14">
                                     <TextBox x:Name="TxtProfileEmail"
-                                               BorderThickness="0"
-                                               Background="Transparent"
-                                               IsReadOnly="True"/> 
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             IsReadOnly="True"/>
                                 </Border>
 
-                                <TextBlock 
-                                    Text="{DynamicResource ProfileRole}" 
-                                    Foreground="{DynamicResource BrushLogText}"
-                                    Margin="0,0,0,6"/>
-                                <Border 
-                                    Background="#F8F8F8" 
-                                    CornerRadius="8" Padding="10" 
-                                    Margin="0,0,0,18">
-                                    <TextBlock x:Name="TxtProfileRole"/>
+                                <TextBlock Text="{DynamicResource ProfileRole}"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
+                                           Margin="0,0,0,6"/>
+                                <Border Background="{DynamicResource BrushFieldBackground}"
+                                        BorderBrush="{DynamicResource BrushFieldBorder}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        Padding="10"
+                                        Margin="0,0,0,18">
+                                    <TextBlock x:Name="TxtProfileRole"
+                                               Foreground="{DynamicResource BrushTextPrimary}"/>
                                 </Border>
 
                                 <Button Content="{DynamicResource ProfileSave}"
                                         Width="180"
                                         Height="38"
-                                        Background="{DynamicResource BrushPrimary}"
-                                        Foreground="White"
-                                        BorderThickness="0"
                                         Click="BtnSaveProfile_Click"/>
                             </StackPanel>
 
-                            <!-- Правая часть -->
                             <Border Grid.Column="2"
-                                    Background="#F8F8F8"
+                                    Background="{DynamicResource BrushFieldBackground}"
+                                    BorderBrush="{DynamicResource BrushFieldBorder}"
+                                    BorderThickness="1"
                                     CornerRadius="14"
-                                    Padding="18">   
+                                    Padding="18"
+                                    VerticalAlignment="Top">
                                 <StackPanel>
-                                    <TextBlock 
-                                        Text="{DynamicResource InterfaceSettings}"
-                                        FontSize="20"
-                                        FontWeight="Bold"
-                                        Margin="0,0,0,18"/>  
+                                    <TextBlock Text="{DynamicResource InterfaceSettings}"
+                                               FontSize="20"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource BrushTextPrimary}"
+                                               Margin="0,0,0,18"/>
 
-                                    <TextBlock 
-                                        Text="{DynamicResource LanguageLabel}" 
-                                        Margin="0,0,0,8"/>
-                                    <StackPanel 
-                                        Orientation="Horizontal" 
-                                        Margin="0,0,0,18">
+                                    <TextBlock Text="{DynamicResource LanguageLabel}"
+                                               Foreground="{DynamicResource BrushTextPrimary}"
+                                               Margin="0,0,0,8"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,18">
                                         <Button Content="{DynamicResource LanguageRu}"
                                                 Width="70"
                                                 Height="34"
@@ -476,19 +555,26 @@
                                                 Click="BtnEn_Click"/>
                                     </StackPanel>
 
-                                    <TextBlock 
-                                        Text="{DynamicResource ThemeLabel}" 
-                                        Margin="0,0,0,8"/>
+                                    <TextBlock Text="{DynamicResource ThemeLabel}"
+                                               Foreground="{DynamicResource BrushTextPrimary}"
+                                               Margin="0,0,0,8"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Content="{DynamicResource LightTheme}"
-                                                Width="140"
-                                                Height="34"
+                                        <Button Style="{StaticResource IconButtonStyle}"
                                                 Margin="0,0,10,0"
-                                                Click="BtnLightTheme_Click"/>
-                                        <Button Content="{DynamicResource DarkTheme}"
-                                                Width="140"
-                                                Height="34"
-                                                Click="BtnDarkTheme_Click"/>
+                                                ToolTip="{DynamicResource LightTheme}"
+                                                Click="BtnLightTheme_Click">
+                                            <Image Source="/Assets/light_mode_24dp_FFFFFF.png"
+                                                   Width="22"
+                                                   Height="22"/>
+                                        </Button>
+
+                                        <Button Style="{StaticResource IconButtonStyle}"
+                                                ToolTip="{DynamicResource DarkTheme}"
+                                                Click="BtnDarkTheme_Click">
+                                            <Image Source="/Assets/dark_mode_24dp_FFFFFF.png"
+                                                   Width="22"
+                                                   Height="22"/>
+                                        </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
